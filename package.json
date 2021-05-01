@@ -1,18 +1,18 @@
 {
-  "name": "lower-case-dashed-name-of-project",
-  "repository": "REPOSITORY-NAME-AS-IT-APPEARS-IN-GITHUB-URL",
+  "name": "beehive-sim",
+  "repository": "BeeHiveSim",
   "version": "0.1.0",
-  "title": "PROJECT TITLE HERE",
-  "description": "SHORT DESCRIPTION OF PROJECT HERE. ONE TO TWO SENTENCES MAX",
+  "title": "Beehive Simulation",
+  "description": "We simulate bees constructing complex honeycomb structures.",
   "keywords": [
     "Princeton",
     "graphics",
     "three.js",
     "COS 426",
     "ivy league",
-    "keyword1",
-    "keyword2",
-    "...",
+    "bees",
+    "honeycomb",
+    "simulation",
     "this last entry CANNOT have a comma after it ->"
   ],
   "scripts": {
