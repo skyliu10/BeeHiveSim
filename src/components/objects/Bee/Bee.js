@@ -14,8 +14,11 @@ class Bee extends Group {
 
         // Load object
         const loader = new GLTFLoader();
-
         this.name = 'bee';
+
+        // scale the bee
+        this.scale.set(.1, .1, .1);
+       
         loader.load(MODEL, (gltf) => {
             this.add(gltf.scene);
         });
