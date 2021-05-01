@@ -1,6 +1,6 @@
 import * as Dat from 'dat.gui';
 import { Scene, Color } from 'three';
-import { Flower, Land } from 'objects';
+import { Flower, Land, Bee } from 'objects';
 import { BasicLights } from 'lights';
 
 class SeedScene extends Scene {
