@@ -21,8 +21,9 @@ class SeedScene extends Scene {
         // Add meshes to scene
         const land = new Land();
         const flower = new Flower(this);
+        const bee = new Bee();
         const lights = new BasicLights();
-        this.add(land, flower, lights);
+        this.add(land, flower, bee, lights);
 
         // Populate GUI
         this.state.gui.add(this.state, 'rotationSpeed', -5, 5);
