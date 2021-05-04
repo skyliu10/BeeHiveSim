@@ -50,7 +50,7 @@ class Branch extends Group {
         geo.merge(smaller1);
 
         let smaller2 = new THREE.ConeGeometry(this.radius / 3, height / 4);
-        smaller2.translate(0, this.radius * 6, this.radius * 10);
+        smaller2.translate(0, this.radius * 7, this.radius * 10);
         smaller2.rotateX(Math.PI + Math.PI / 20);
         geo.merge(smaller2);
 
