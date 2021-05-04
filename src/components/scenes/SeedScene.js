@@ -22,7 +22,7 @@ class SeedScene extends Scene {
         //const land = new Land();
        // const flower = new Flower(this);
         const bee = new Bee(this);
-        const branch = new Branch(this, 0.5, 10);
+        const branch = new Branch(this, 0.25, 10);
         branch.position.set(0, 0, 0);
         const lights = new BasicLights();
         this.add(bee, branch, lights);

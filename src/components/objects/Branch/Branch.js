@@ -2,12 +2,14 @@ import { Group,
     Mesh,
     MeshToonMaterial,
     PlaneGeometry,
-    BoxGeometry,
+    ConeGeometry,
     DoubleSide,
     CircleGeometry,
     SpotLight,
     CylinderGeometry,
-    AxesHelper} from 'three';
+    AxesHelper,
+    BufferGeometry,
+    Geometry} from 'three';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import MODEL from './branch.glb';
@@ -27,11 +29,37 @@ class Branch extends Group {
         };*/
 
         // create the cylinder
-      
+        const geo = new Geometry();
+
+        // main branch
+        let main = new THREE.CylinderGeometry(this.radius, this.radius, this.height);
+        main.rotateX(Math.PI / 2);
+        geo.merge(main);
+
+        // make smaller branches
+        let smaller = new THREE.ConeGeometry(this.radius / 3, height / 3);
+        smaller.translate(0, this.radius * 7, this.radius * 2);
+        smaller.rotateX(Math.PI / 14);
+        geo.merge(smaller);
+
+        let smaller1 = new THREE.ConeGeometry(this.radius / 3, height / 2);
+        smaller1.translate(0, this.radius * 8, -this.radius * 10);
+       // smaller1.rotateX(-Math.PI / 20);
+        smaller1.rotateX(Math.PI + Math.PI / 20);
+       // smaller1.rotateZ(Math.PI  * 2);
+        geo.merge(smaller1);
+
+        let smaller2 = new THREE.ConeGeometry(this.radius / 3, height / 4);
+        smaller2.translate(0, this.radius * 6, this.radius * 10);
+        smaller2.rotateX(Math.PI + Math.PI / 20);
+        geo.merge(smaller2);
+
        var mesh = new THREE.Mesh( 
-            new THREE.CylinderGeometry(this.radius, this.radius, this.height),
+            new BufferGeometry().fromGeometry(geo),
             new THREE.MeshPhongMaterial({ color: 0x5C4033})
         );
+
+
         this.add(mesh);
 
 

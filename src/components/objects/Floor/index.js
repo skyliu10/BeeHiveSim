@@ -1,1 +1,1 @@
-export { default as Floor } from './Floor.js';
+export { default as Bee } from './Floor.js';
