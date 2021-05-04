@@ -13,6 +13,7 @@ class SeedScene extends Scene {
             gui: new Dat.GUI(), // Create GUI for scene
             rotationSpeed: 1,
             updateList: [],
+            numBees: 1
         };
 
         // Set background to a nice color
@@ -31,6 +32,7 @@ class SeedScene extends Scene {
 
         // Populate GUI
         this.state.gui.add(this.state, 'rotationSpeed', -5, 5);
+        this.state.gui.add(this.state, 'numBees', 1, 5).step(1);
     }
 
     addToUpdateList(object) {
