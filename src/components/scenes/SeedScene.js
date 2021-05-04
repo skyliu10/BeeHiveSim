@@ -13,22 +13,32 @@ class SeedScene extends Scene {
             gui: new Dat.GUI(), // Create GUI for scene
             rotationSpeed: 1,
             updateList: [],
-            numBees: 1
+            numBees: 1,
         };
 
         // Set background to a nice color
         this.background = new Color(0x7ec0ee);
-
+    
         // Add meshes to scene
         //const land = new Land();
        // const flower = new Flower(this);
-        const bee = new Bee(this, .1);
+
+       // add multiple bees if needed
+       // will set this right at the start
+       for (let i = 0; i < this.state.numBees; i++)
+       {
+           let bee = new Bee(this, .1);
+           this.add(bee);
+           
+
+       }
+        
         const branch = new Branch(this, 0.25, 10);
         const floor = new Floor(this);
         branch.position.set(0, 0, 0);
         floor.position.set(0, 0, 0);
         const lights = new BasicLights();
-        this.add(bee, branch, lights);
+        this.add(branch, lights);
 
         // Populate GUI
         this.state.gui.add(this.state, 'rotationSpeed', -5, 5);
@@ -40,9 +50,9 @@ class SeedScene extends Scene {
     }
 
     update(timeStamp) {
-        const { rotationSpeed, updateList } = this.state;
+        const { rotationSpeed, updateList, numBees } = this.state;
       //  this.rotation.y = (rotationSpeed * timeStamp) / 10000;
-
+        
         // Call update for each object in the updateList
       for (const obj of updateList) {
             obj.update(timeStamp);
