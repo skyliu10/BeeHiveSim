@@ -21,32 +21,32 @@ class Floor extends Group {
         };*/
         this.name = 'floor';
 
-        var floorShape = new THREE.Shape();
+        let floorShape = new THREE.Shape();
         floorShape.moveTo(this.position.x, this.position.y, this.position.z);
-        var curve = new THREE.CubicBezierCurve3(
+        let curve = new THREE.CubicBezierCurve3(
             new THREE.Vector3(this.position.x - 1, this.position.y, this.position.z),
             new THREE.Vector3(this.position.x - 1, this.position.y - 1, this.position.z),
             new THREE.Vector3(this.position.x + 1, this.position.y - 1, this.position.z),
             new THREE.Vector3(this.position.x + 1, this.position.y, this.position.z)
         );
 
-        var points = curve.getPoints(50);
+        let points = curve.getPoints(50);
 
-        var geometry = new THREE.BufferGeometry().setFromPoints(points);
-        var material = new THREE.MeshPhongMaterial({ color: 0xFFFF00});
-        var mesh = new THREE.Mesh(geometry, material);
+        let geometry = new THREE.BufferGeometry().setFromPoints(points);
+        let material = new THREE.MeshBasicMaterial({ color: 0x5C4033});
+        let mesh = new THREE.Mesh(geometry, material);
         this.add(mesh);
 
         // Add self to parent's update list
-        //parent.addToUpdateList(this);
+        parent.addToUpdateList(this);
 
     }
 
-    // update(timeStamp) {
+    update(timeStamp) {
 
     
 
-    // }
+    }
 }
 
 export default Floor;
