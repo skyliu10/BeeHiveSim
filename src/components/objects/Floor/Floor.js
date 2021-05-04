@@ -8,8 +8,6 @@ import { Group,
     SpotLight,
     CylinderGeometry,
     AxesHelper} from 'three';
-import { Group, Box3} from 'three';
-import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 import * as THREE from "three";
 
 class Floor extends Group {
@@ -35,7 +33,7 @@ class Floor extends Group {
         var points = curve.getPoints(50);
 
         var geometry = new THREE.BufferGeometry().setFromPoints(points);
-        var material = new THREE.LineBasicMaterial({ color: 0xFFFF00});
+        var material = new THREE.MeshPhongMaterial({ color: 0xFFFF00});
         var mesh = new THREE.Mesh(geometry, material);
         this.add(mesh);
 
