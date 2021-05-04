@@ -21,7 +21,7 @@ class SeedScene extends Scene {
         // Add meshes to scene
         //const land = new Land();
        // const flower = new Flower(this);
-        const bee = new Bee();
+        const bee = new Bee(this);
         const branch = new Branch();
         const lights = new BasicLights();
         this.add(bee, branch, lights);
@@ -35,13 +35,13 @@ class SeedScene extends Scene {
     }
 
     update(timeStamp) {
-       // const { rotationSpeed, updateList } = this.state;
+        const { rotationSpeed, updateList } = this.state;
       //  this.rotation.y = (rotationSpeed * timeStamp) / 10000;
 
         // Call update for each object in the updateList
-     /*   for (const obj of updateList) {
+      for (const obj of updateList) {
             obj.update(timeStamp);
-        }*/
+        }
     }
 }
 
