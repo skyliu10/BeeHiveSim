@@ -39,10 +39,12 @@ class Bee extends Group {
 
         // move randomly for now
         // need to figure out how to keep within the scence
+
         if (this.position.x > LIMIT && this.position.y > LIMIT && this.position.z > LIMIT ) {
-        var shift = new THREE.Vector3();
-        var direction = new THREE.Vector3(Math.random() * 2 - 1, 0, Math.random() * 2 - 1).normalize(); 
-        this.position.add(direction);
+       var direction = new THREE.Vector3(Math.random() * 2 - 1, 0, Math.random() * 2 - 1).normalize(); 
+     //   this.position.add(direction);
+         var tween = new TWEEN.Tween(this.position).to(this.position.add(direction)).start();
+            
         }
         this.boundingBox.setFromObject(this);
         TWEEN.update();
