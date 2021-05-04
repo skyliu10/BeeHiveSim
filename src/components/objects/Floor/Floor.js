@@ -8,6 +8,8 @@ import { Group,
     SpotLight,
     CylinderGeometry,
     AxesHelper} from 'three';
+import { Group, Box3} from 'three';
+import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 import * as THREE from "three";
 
 class Floor extends Group {
