@@ -1,6 +1,6 @@
 import * as Dat from 'dat.gui';
 import { Scene, Color } from 'three';
-import { Flower, Land, Bee, Branch } from 'objects';
+import { Flower, Land, Bee, Branch, Floor } from 'objects';
 import { BasicLights } from 'lights';
 
 class SeedScene extends Scene {
@@ -23,7 +23,9 @@ class SeedScene extends Scene {
        // const flower = new Flower(this);
         const bee = new Bee(this);
         const branch = new Branch(this, 0.5, 10);
+        const floor = new Floor(this);
         branch.position.set(0, 0, 0);
+        floor.position.set(0, 0, 0);
         const lights = new BasicLights();
         this.add(bee, branch, lights);
 

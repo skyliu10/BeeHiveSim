@@ -1,9 +1,14 @@
-import { Group, Box3} from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import MODEL from './Bee_01.glb';
-import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
+import { Group,
+    Mesh,
+    MeshToonMaterial,
+    PlaneGeometry,
+    BoxGeometry,
+    DoubleSide,
+    CircleGeometry,
+    SpotLight,
+    CylinderGeometry,
+    AxesHelper} from 'three';
 import * as THREE from "three";
-
 
 class Floor extends Group {
     constructor(parent) {
@@ -14,30 +19,34 @@ class Floor extends Group {
        /* this.state = {
             gui: parent.state.gui,
         };*/
-
-        // Load object
-        const loader = new GLTFLoader();
         this.name = 'floor';
 
-    
-        loader.load(MODEL, (gltf) => {
-            this.add(gltf.scene);
-        });
+        var floorShape = new THREE.Shape();
+        floorShape.moveTo(this.position.x, this.position.y, this.position.z);
+        var curve = new THREE.CubicBezierCurve3(
+            new THREE.Vector3(this.position.x - 1, this.position.y, this.position.z),
+            new THREE.Vector3(this.position.x - 1, this.position.y - 1, this.position.z),
+            new THREE.Vector3(this.position.x + 1, this.position.y - 1, this.position.z),
+            new THREE.Vector3(this.position.x + 1, this.position.y, this.position.z)
+        );
+
+        var points = curve.getPoints(50);
+
+        var geometry = new THREE.BufferGeometry().setFromPoints(points);
+        var material = new THREE.LineBasicMaterial({ color: 0xFFFF00});
+        var mesh = new THREE.Mesh(geometry, material);
+        this.add(mesh);
 
         // Add self to parent's update list
-       parent.addToUpdateList(this);
+        //parent.addToUpdateList(this);
 
-       this.boundingBox = new Box3;
-
-      
-      
     }
 
-    update(timeStamp) {
+    // update(timeStamp) {
 
     
 
-    }
+    // }
 }
 
 export default Floor;
