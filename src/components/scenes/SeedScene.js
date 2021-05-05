@@ -22,13 +22,14 @@ class SeedScene extends Scene {
         // Add meshes to scene
         //const land = new Land();
        // const flower = new Flower(this);
-        const bee = new Bee(this, .1);
+        const bee = new Bee(this);
         const branch = new Branch(this, 0.25, 10);
         const floor = new Floor(this);
+        bee.position.set(0, -0.4, 0);
         branch.position.set(0, 0, 0);
-        floor.position.set(0, 0, 0);
+        floor.position.set(0, -0.2, 0);
         const lights = new BasicLights();
-        this.add(bee, branch, lights);
+        this.add(bee, branch, floor, lights);
 
         // Populate GUI
         this.state.gui.add(this.state, 'rotationSpeed', -5, 5);
