@@ -8,11 +8,14 @@
  */
 import { WebGLRenderer, PerspectiveCamera, Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { SeedScene } from 'scenes';
+import { SeedScene, StartScene } from 'scenes';
 
 // Initialize core ThreeJS components
-const scene = new SeedScene();
-const camera = new PerspectiveCamera();
+let scene = new StartScene(startSim);
+let isStart = true;
+let isSim = false;
+let simScene;
+let camera = new PerspectiveCamera();
 const renderer = new WebGLRenderer({ antialias: true });
 
 // Set up camera
@@ -28,18 +31,36 @@ document.body.style.overflow = 'hidden'; // Fix scrolling
 document.body.appendChild(canvas);
 
 // Set up controls
-const controls = new OrbitControls(camera, canvas);
+let controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
 controls.enablePan = false;
 controls.minDistance = 4;
 controls.maxDistance = 16;
 controls.update();
 
+// call SeedScene to start simulation
+function startSim() {
+    scene.destruct();
+    isStart = false;
+    isSim = true;
+    simScene = new SeedScene();
+    
+};
+
 // Render loop
 const onAnimationFrameHandler = (timeStamp) => {
     controls.update();
-    renderer.render(scene, camera);
-    scene.update && scene.update(timeStamp);
+    // render correct scene
+    if(isStart) {
+        renderer.render(scene, camera);
+        scene.update && scene.update(timeStamp);
+    }
+    else {
+        renderer.render(simScene, camera);
+        controls.update();
+        simScene.update && simScene.update(timeStamp);
+    }   
+   
     window.requestAnimationFrame(onAnimationFrameHandler);
 };
 window.requestAnimationFrame(onAnimationFrameHandler);
