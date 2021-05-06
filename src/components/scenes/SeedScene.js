@@ -2,6 +2,7 @@ import * as Dat from 'dat.gui';
 import { Scene, Color } from 'three';
 import { Flower, Land, Bee, Branch, Floor } from 'objects';
 import { BasicLights } from 'lights';
+import Cells from '../objects/Cells/Cells';
 
 class SeedScene extends Scene {
     constructor() {
@@ -13,7 +14,7 @@ class SeedScene extends Scene {
             gui: new Dat.GUI(), // Create GUI for scene
             rotationSpeed: 1,
             updateList: [],
-            numBees: 1,
+            numBees: 20,
         };
 
         // Set background to a nice color
@@ -23,21 +24,23 @@ class SeedScene extends Scene {
         // const land = new Land();
         // const flower = new Flower(this);
 
-        // add multiple bees if needed
-        // will set this right at the start
-        for (let i = 0; i < this.state.numBees; i++) {
-            let bee = new Bee(this, .1);
-            bee.position.set(0, -0.4, 0);
-            this.add(bee);
-        }
+        const branchRadius = 0.25;
             
-        const branch = new Branch(this, 0.25, 10);
+        const branch = new Branch(this, branchRadius, 10);
         const floor = new Floor(this);
-        
         branch.position.set(0, 0, 0);
         floor.position.set(0, -0.2, 0);
         const lights = new BasicLights();
-        this.add(branch, floor, lights);
+        const cells = new Cells(this);
+        this.add(floor, cells, lights);
+
+        // add multiple bees if needed
+        // will set this right at the start
+        for (let i = 0; i < this.state.numBees; i++) {
+            let bee = new Bee(this);
+            bee.position.set(0.04, -0.3, 0);
+            this.add(bee);
+        }
 
         // Populate GUI
         this.state.gui.add(this.state, 'rotationSpeed', -5, 5);
@@ -50,10 +53,10 @@ class SeedScene extends Scene {
 
     update(timeStamp) {
         const { rotationSpeed, updateList, numBees } = this.state;
-      //  this.rotation.y = (rotationSpeed * timeStamp) / 10000;
+        // this.rotation.y = (rotationSpeed * timeStamp) / 10000;
         
         // Call update for each object in the updateList
-      for (const obj of updateList) {
+        for (const obj of updateList) {
             obj.update(timeStamp);
         }
     }
