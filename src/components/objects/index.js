@@ -3,3 +3,4 @@ export * from './Land';
 export * from './Bee';
 export * from './Branch';
 export * from './Floor';
+export * from './CellLocations';

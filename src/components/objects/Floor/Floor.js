@@ -29,7 +29,7 @@ class Floor extends Group {
 
         this.mesh = new THREE.Mesh(
             geometry,
-            new THREE.MeshBasicMaterial({ color: 0xd6cb4f})
+            new THREE.MeshBasicMaterial({color: 0xd6cb4f})
         );
         this.add(this.mesh);
 

@@ -21,7 +21,8 @@ class Bee extends Group {
 
         // scale the bee and set construction measure proportional to bee scale
         this.scale.set(scale, scale, scale);
-        this.measure = scale * 2;
+        this.measure = scale * 10;
+        console.log(this.measure);
        
         loader.load(MODEL, (gltf) => {
             this.add(gltf.scene);
@@ -54,8 +55,11 @@ class Bee extends Group {
 
         // restrict to bounding box of floor
         let floor = this.parent.children[0];
-        if (floor.bb.containsPoint(position.setX(0))) {
+        if (floor.bb.containsPoint(new THREE.Vector3().copy(position).setX(0))) {
             this.position.addScaledVector(direction, 0.02);
+
+            // add new cell location, if current position is valid
+            this.parent.children[1].addNewLocation(position, this.measure);
         }
 
         // restrict to floor using intersectsWith function (raycasting)
@@ -67,14 +71,17 @@ class Bee extends Group {
         else if (position.y < floor.bb.max.y) { 
             let zMid = 0.5 * floor.bb.min.z + 0.5 * floor.bb.max.z
             if (position.z < zMid) { // add to right side of floor
-                console.log("adding to right side");
+                //console.log("adding to right side");
                 floor.addWax(-0.001, -0.005, 0, 0);
             }
             else { // add to left side of floor
-                console.log("adding to left side");
+                //console.log("adding to left side");
                 floor.addWax(0, 0, -0.005, 0.001);
             }
         }
+
+
+
     }
 
     // returns true if position is within mesh (projected onto y-z plane)
