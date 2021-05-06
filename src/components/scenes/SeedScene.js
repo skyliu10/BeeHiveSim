@@ -1,9 +1,9 @@
 import * as Dat from 'dat.gui';
 import { Scene, Color } from 'three';
-import { Flower, Land, Bee, Branch, Floor, CellLocations } from 'objects';
+import { Flower, Land, Bee, Branch, Floor, CellLocations, CellWalls } from 'objects';
 import { BasicLights } from 'lights';
 const RAND_MEASURES = true;
-const VARIANCE = 1000; // smaller = more variance
+const VARIANCE = 4000; // smaller = more variance
 
 class SeedScene extends Scene {
     constructor() {
@@ -16,33 +16,32 @@ class SeedScene extends Scene {
             rotationSpeed: 1,
             updateList: [],
             numBees: 20,
+            updateLimit: 500000,
+            scale: 0.01
         };
 
         // Set background to a nice color
         this.background = new Color(0x7ec0ee);
-    
-        // Add meshes to scene
-        // const land = new Land();
-        // const flower = new Flower(this);
 
-        const branchRadius = 0.25;
-            
-        const branch = new Branch(this, branchRadius, 10);
+        //const branchRadius = 0.25;
+        //const branch = new Branch(this, branchRadius, 10);
+        //branch.position.set(0, 0, 0);
+
         const floor = new Floor(this);
         const cellLocations = new CellLocations(this);
-        branch.position.set(0, 0, 0);
-        floor.position.set(0, -0.2, 0);
+        const cellWalls = new CellWalls(this);
         const lights = new BasicLights();
-        this.add(floor, cellLocations, lights);
+        floor.position.set(0, -0.2, 0);
+        this.add(floor, cellLocations, cellWalls, lights);
 
         // add multiple bees if needed
         // will set this right at the start
         for (let i = 0; i < this.state.numBees; i++) {
-            let scale = 0.01;
+            let scale = this.state.scale;
             // randomize bee size, and thus construction measuring
             if (RAND_MEASURES) {
                 let rand = (Math.random() * 2 - 1) / VARIANCE;
-                scale = 0.01 + rand;
+                scale += rand;
             }
             let bee = new Bee(this, scale);
             bee.position.set(0.04, -0.3, 0);

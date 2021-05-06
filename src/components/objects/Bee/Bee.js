@@ -4,6 +4,7 @@ import MODEL from './Bee_01.glb';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 import * as THREE from "three";
 const LIMIT = -100;
+const EXPANSION_RATE = 0.0005;
 
 class Bee extends Group {
     constructor(parent, scale) {
@@ -38,7 +39,7 @@ class Bee extends Group {
     }
 
     update(timeStamp) {
-        if (timeStamp > 200000) { return; }
+        if (timeStamp > this.parent.state.updateLimit) { return; }
         // if (this.position.x > LIMIT && this.position.y > LIMIT && this.position.z > LIMIT ) {
         //     var direction = new THREE.Vector3(Math.random() * 2 - 1, 0, Math.random() * 2 - 1).normalize(); 
         //     // this.position.add(direction);
@@ -57,8 +58,13 @@ class Bee extends Group {
         if (floor.bb.containsPoint(new THREE.Vector3().copy(position).setX(0))) {
             this.position.addScaledVector(direction, 0.02);
 
+            let correctedPosition = new THREE.Vector3().copy(position).add(new Vector3(0, -0.25, 0));
+
             // add new cell location, if current position is valid
-            this.parent.children[1].addNewLocation(position, this.measure);
+            this.parent.children[1].addNewLocation(correctedPosition, this.measure);
+
+            // add new cell wall deposit, if current position is valid
+            this.parent.children[2].addNewDeposit(correctedPosition);
         }
 
         // restrict to floor using intersectsWith function (raycasting)
@@ -71,11 +77,11 @@ class Bee extends Group {
             let zMid = 0.5 * floor.bb.min.z + 0.5 * floor.bb.max.z
             if (position.z < zMid) { // add to right side of floor
                 //console.log("adding to right side");
-                floor.addWax(-0.001, -0.005, 0, 0);
+                floor.addWax(-1 * EXPANSION_RATE, -5 * EXPANSION_RATE, 0, 0);
             }
             else { // add to left side of floor
                 //console.log("adding to left side");
-                floor.addWax(0, 0, -0.005, 0.001);
+                floor.addWax(0, 0, -5 * EXPANSION_RATE, 1 * EXPANSION_RATE);
             }
         }
 
