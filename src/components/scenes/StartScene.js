@@ -1,6 +1,6 @@
 import * as Dat from 'dat.gui';
 import { Scene, Color } from 'three';
-import { Flower, Land, Bee, Branch, Floor, CellLocations } from 'objects';
+import { Flower, Land, BeeIndex, Branch, Floor, CellLocations } from 'objects';
 import { BasicLights } from 'lights';
 
 class StartScene extends Scene {
@@ -9,8 +9,16 @@ class StartScene extends Scene {
         super();
 
         this.state = {
-         // bees: [],
+          updateList: [],
         };
+
+        // add bees
+        for (let i = 0; i < 10; i++) {
+            let scale = .1;
+            let bee = new BeeIndex(this, scale);
+            bee.position.set(0.04, -0.3, 0);
+            this.add(bee);
+        }
 
         this.background = new Color(0x7ec0ee);
 
@@ -46,6 +54,22 @@ class StartScene extends Scene {
             divElement.style.left = (window.innerWidth - divElement.clientWidth)/2 + 'px';
         });
     }
+
+    // update
+    addToUpdateList(object) {
+        this.state.updateList.push(object);
+    }
+
+    update() {
+        const { updateList} = this.state;
+        // this.rotation.y = (rotationSpeed * timeStamp) / 10000;
+        
+        // Call update for each object in the updateList
+        for (const obj of updateList) {
+            obj.update();
+        }
+    }
+
     
     // destruct scene
     destruct() {

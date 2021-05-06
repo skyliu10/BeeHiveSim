@@ -5,3 +5,4 @@ export * from './Branch';
 export * from './Floor';
 export * from './CellLocations';
 export * from './CellWalls';
+export * from './BeeIndex';
