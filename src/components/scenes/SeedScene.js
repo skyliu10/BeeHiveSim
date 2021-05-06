@@ -13,7 +13,7 @@ class SeedScene extends Scene {
             gui: new Dat.GUI(), // Create GUI for scene
             rotationSpeed: 1,
             updateList: [],
-            numBees: 1,
+            numBees: 20,
         };
 
         // Set background to a nice color

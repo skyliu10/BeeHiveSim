@@ -17,13 +17,27 @@ class CellLocations extends Group {
 
         // make geometry and add first location
         this.geometry = new THREE.BufferGeometry();
-        this.buffer = new Float32Array(this.locations.length * 3);
-        this.geometry.setAttribute('position', new THREE.BufferAttribute(this.buffer, 3).copyVector3sArray(this.locations));
+        let buffer = new Float32Array(this.locations.length * 3);
+        this.geometry.setAttribute('position', new THREE.BufferAttribute(buffer, 3).copyVector3sArray(this.locations));
 
         // make mesh and add to scene
-        const material = new THREE.MeshBasicMaterial({color: 0x000000});
-        this.mesh = new THREE.Mesh(this.geometry, material);
+        const material = new THREE.PointsMaterial({color: 0x000000, size: 0.05});
+        this.mesh = new THREE.Points(this.geometry, material);
         this.add(this.mesh);
+
+        // Add self to parent's update list
+        parent.addToUpdateList(this);
+    }
+
+    update(timeStamp) {
+
+    }
+
+    // add new cell location at position, update mesh
+    updateMesh(position) {
+        this.locations.push(position);
+        let buffer = new Float32Array(this.locations.length * 3);
+        this.mesh.geometry.setAttribute('position', new THREE.BufferAttribute(buffer, 3).copyVector3sArray(this.locations));
     }
 
     // adds a new cell location if location is valid. will be called for all positions a bee visits. 
@@ -36,7 +50,7 @@ class CellLocations extends Group {
             let dist = this.locations[0].distanceTo(position);
             if (Math.abs(dist - measure) < TOLERANCE) {
                 console.log("adding cell location");
-                this.locations.push(position);
+                this.updateMesh(position);
                 console.log(this.locations);
             }
         }
@@ -73,7 +87,7 @@ class CellLocations extends Group {
 
             if (apprDistFromTwo && farEnoughAway) {
                 console.log("adding cell location");
-                this.locations.push(position);
+                this.updateMesh(position);
                 console.log(this.locations);
             }
         }
