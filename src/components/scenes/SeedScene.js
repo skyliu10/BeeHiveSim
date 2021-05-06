@@ -2,7 +2,6 @@ import * as Dat from 'dat.gui';
 import { Scene, Color } from 'three';
 import { Flower, Land, Bee, Branch, Floor } from 'objects';
 import { BasicLights } from 'lights';
-import Cells from '../objects/Cells/Cells';
 
 class SeedScene extends Scene {
     constructor() {
@@ -14,7 +13,7 @@ class SeedScene extends Scene {
             gui: new Dat.GUI(), // Create GUI for scene
             rotationSpeed: 1,
             updateList: [],
-            numBees: 20,
+            numBees: 1,
         };
 
         // Set background to a nice color
@@ -31,13 +30,15 @@ class SeedScene extends Scene {
         branch.position.set(0, 0, 0);
         floor.position.set(0, -0.2, 0);
         const lights = new BasicLights();
-        const cells = new Cells(this);
-        this.add(floor, cells, lights);
+        this.add(floor, lights);
 
         // add multiple bees if needed
         // will set this right at the start
         for (let i = 0; i < this.state.numBees; i++) {
-            let bee = new Bee(this);
+            // randomize bee size, and thus construction measuring
+            let rand = (Math.random() * 2 - 1) / 200;
+            let scale = 0.01 + rand;
+            let bee = new Bee(this, scale);
             bee.position.set(0.04, -0.3, 0);
             this.add(bee);
         }
