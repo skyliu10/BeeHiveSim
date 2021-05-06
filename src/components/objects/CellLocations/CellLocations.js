@@ -1,6 +1,6 @@
 import { Group, Scene } from 'three';
 import * as THREE from "three";
-const TOLERANCE = 0.003;
+const TOLERANCE = 0.004; // should probably be around 0.003. influences how fast new locations are added
 
 class CellLocations extends Group {
     constructor(parent) {
@@ -12,8 +12,8 @@ class CellLocations extends Group {
         this.locations = [];
 
         // push first location
-        this.locations.push(new THREE.Vector3(0.04, -0.1, 0));
-        console.log(this.locations);
+        this.locations.push(new THREE.Vector3(0.04, -0.2, 0));
+        //console.log(this.locations);
 
         // make geometry and add first location
         this.geometry = new THREE.BufferGeometry();
@@ -21,7 +21,7 @@ class CellLocations extends Group {
         this.geometry.setAttribute('position', new THREE.BufferAttribute(buffer, 3).copyVector3sArray(this.locations));
 
         // make mesh and add to scene
-        const material = new THREE.PointsMaterial({color: 0x000000, size: 0.05});
+        const material = new THREE.PointsMaterial({color: 0x000000, size: 0.02});
         this.mesh = new THREE.Points(this.geometry, material);
         this.add(this.mesh);
 
@@ -48,11 +48,7 @@ class CellLocations extends Group {
         if (numLocations == 1) {
             // new location must only be appropriate distance from the one existing location
             let dist = this.locations[0].distanceTo(position);
-            if (Math.abs(dist - measure) < TOLERANCE) {
-                console.log("adding cell location");
-                this.updateMesh(position);
-                console.log(this.locations);
-            }
+            if (Math.abs(dist - measure) < TOLERANCE) { this.updateMesh(position); }
         }
 
         if (numLocations > 1) { 
@@ -85,11 +81,7 @@ class CellLocations extends Group {
 
             //console.log(apprDistFromTwo, farEnoughAway);
 
-            if (apprDistFromTwo && farEnoughAway) {
-                //console.log("adding cell location");
-                this.updateMesh(position);
-                //console.log(this.locations);
-            }
+            if (apprDistFromTwo && farEnoughAway) { this.updateMesh(position); }
         }
     }
 
