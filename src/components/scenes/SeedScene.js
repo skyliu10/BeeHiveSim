@@ -2,6 +2,8 @@ import * as Dat from 'dat.gui';
 import { Scene, Color } from 'three';
 import { Flower, Land, Bee, Branch, Floor, CellLocations } from 'objects';
 import { BasicLights } from 'lights';
+const RAND_MEASURES = true;
+const VARIANCE = 1000; // smaller = more variance
 
 class SeedScene extends Scene {
     constructor() {
@@ -36,10 +38,12 @@ class SeedScene extends Scene {
         // add multiple bees if needed
         // will set this right at the start
         for (let i = 0; i < this.state.numBees; i++) {
-            // randomize bee size, and thus construction measuring
-            //let rand = (Math.random() * 2 - 1) / 2000;
-            //let scale = 0.01 + rand;
             let scale = 0.01;
+            // randomize bee size, and thus construction measuring
+            if (RAND_MEASURES) {
+                let rand = (Math.random() * 2 - 1) / VARIANCE;
+                scale = 0.01 + rand;
+            }
             let bee = new Bee(this, scale);
             bee.position.set(0.04, -0.3, 0);
             this.add(bee);

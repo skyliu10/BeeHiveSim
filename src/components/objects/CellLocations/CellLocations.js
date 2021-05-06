@@ -86,9 +86,9 @@ class CellLocations extends Group {
             //console.log(apprDistFromTwo, farEnoughAway);
 
             if (apprDistFromTwo && farEnoughAway) {
-                console.log("adding cell location");
+                //console.log("adding cell location");
                 this.updateMesh(position);
-                console.log(this.locations);
+                //console.log(this.locations);
             }
         }
     }
