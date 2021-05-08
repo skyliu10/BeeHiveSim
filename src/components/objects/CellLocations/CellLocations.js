@@ -54,6 +54,7 @@ class CellLocations extends Group {
         // restrict to frame
         if (!this.parent.children[2].bb.containsPoint(new THREE.Vector3().copy(position).setX(0))) { return; }
 
+        // constrain new location
         if (numLocations == 1) {
             // new location must only be appropriate distance from the one existing location
             let dist = this.locations[0].distanceTo(position);
@@ -87,8 +88,6 @@ class CellLocations extends Group {
                     }
                 }
             }
-
-            //console.log(apprDistFromTwo, farEnoughAway);
 
             if (apprDistFromTwo && farEnoughAway) { this.updateMesh(position); }
         }
