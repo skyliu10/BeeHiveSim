@@ -1,9 +1,9 @@
 import * as Dat from 'dat.gui';
 import { Scene, Color } from 'three';
-import { Flower, Land, Bee, Branch, Floor, CellLocations, CellWalls } from 'objects';
+import { Flower, Land, Bee, Branch, Floor, CellLocations, CellWalls, Frame } from 'objects';
 import { BasicLights } from 'lights';
 const RAND_MEASURES = true;
-const VARIANCE = 4000; // smaller = more variance
+const VARIANCE = 50000; // smaller = more variance
 
 class SeedScene extends Scene {
     constructor() {
@@ -15,9 +15,9 @@ class SeedScene extends Scene {
             gui: new Dat.GUI(), // Create GUI for scene
             rotationSpeed: 1,
             updateList: [],
-            numBees: 20,
+            numBees: 25,
             updateLimit: 500000,
-            scale: 0.01
+            scale: 0.002
         };
 
         // Set background to a nice color
@@ -27,12 +27,13 @@ class SeedScene extends Scene {
         //const branch = new Branch(this, branchRadius, 10);
         //branch.position.set(0, 0, 0);
 
-        const floor = new Floor(this);
+        //const floor = new Floor(this);
         const cellLocations = new CellLocations(this);
         const cellWalls = new CellWalls(this);
+        const frame = new Frame(this);
         const lights = new BasicLights();
-        floor.position.set(0, -0.2, 0);
-        this.add(floor, cellLocations, cellWalls, lights);
+        //floor.position.set(0, -0.2, 0);
+        this.add(cellLocations, cellWalls, frame, lights);
 
         // add multiple bees if needed
         // will set this right at the start
@@ -44,7 +45,7 @@ class SeedScene extends Scene {
                 scale += rand;
             }
             let bee = new Bee(this, scale);
-            bee.position.set(0.04, -0.3, 0);
+            bee.position.set(0.04, 0, 0); //-0.3
             this.add(bee);
         }
 

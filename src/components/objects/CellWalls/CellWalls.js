@@ -14,7 +14,7 @@ class CellWalls extends Group {
         this.geometry = new THREE.BufferGeometry();
 
         // make mesh and add to scene
-        const material = new THREE.PointsMaterial({color: 0xffb005, size: 0.02});
+        const material = new THREE.PointsMaterial({color: 0x000000, size: 0.015});
         this.mesh = new THREE.Points(this.geometry, material);
         this.add(this.mesh);
 
@@ -36,31 +36,52 @@ class CellWalls extends Group {
     // adds a cell wall wax deposit, if in valid location.
     // 2 constraints: Voronoi and circle
     addNewDeposit(position) {
-        let locations = this.parent.children[1].locations;
+        let scale = this.parent.state.scale;
+        let locations = this.parent.children[0].locations;
 
-        // determine closest location (simulatenously applying Voronoi constraint)
-        let closestLocation = locations[0];
-        let bestDist = closestLocation.distanceTo(position);
-        for (let i = 1; i < locations.length; i++) {
-            let challDist = locations[i].distanceTo(position);
-            if (challDist < bestDist) {
+        if (locations.length < 7) { return; }
+
+        // determine proximity to existing cell wall, if cell wall exists already
+        if (this.deposits.length > 0) {
+            let closeToWall = false;
+            for (let i = 0; i < this.deposits.length; i++) {
+                if (this.deposits[i].distanceTo(position) < (scale * 8)) { closeToWall = true; }
+            }
+            if (closeToWall == false) { return; }
+        }
+
+        let closestLocation;
+        let secondClosestLocation;
+        let bestDist = 100000;
+        let secondBestDist = 100000;
+
+        // determine closest location (thereby applying Voronoi)
+        for (let i = 0; i < locations.length; i++) {
+            if (locations[i].distanceTo(position) < bestDist) {
                 closestLocation = locations[i];
-                bestDist = challDist;
+                bestDist = locations[i].distanceTo(position);
             }
         }
-        let dist = bestDist;
+
+        // determine second closest location, for cell wall thickness purposes
+        for (let i = 0; i < locations.length; i++) {
+            if (locations[i].distanceTo(position) < secondBestDist && locations[i].distanceTo(position) > bestDist) {
+                secondClosestLocation = locations[i];
+                secondBestDist = locations[i].distanceTo(position);
+            }
+        }
 
         // determine if closest location is adequately surrounded
         let numSurrounding = 0;
         for (let i = 0; i < locations.length; i++) {
             let neighborDist = closestLocation.distanceTo(locations[i]);
-            if (neighborDist < 0.15) { numSurrounding++; } // need to use scale here
+            if (neighborDist < (scale * 30)) { numSurrounding++; }
         }
 
         if (numSurrounding < 7) { return; } // 6 surrounding + 1 self
 
-        // apply circle-around-location constraint and add deposit if it checks out
-        if (dist > 0.05) { this.updateMesh(position); } // need to use scale here
+        // apply circle-around-location constraint, wall thickness constraint
+        if (bestDist > (scale * 11) || Math.abs(bestDist - secondBestDist) < scale) { this.updateMesh(position); }
 
         //console.log(numSurrounding);
     }

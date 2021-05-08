@@ -1,6 +1,6 @@
-import { Group, Scene } from 'three';
+import { Box3, Group, Scene } from 'three';
 import * as THREE from "three";
-const TOLERANCE = 0.004; // should probably be around 0.003. influences how fast new locations are added
+const TOLERANCE = 0.001; // should probably be around 0.002. influences how fast new locations are added
 
 class CellLocations extends Group {
     constructor(parent) {
@@ -12,7 +12,7 @@ class CellLocations extends Group {
         this.locations = [];
 
         // push first location
-        this.locations.push(new THREE.Vector3(0.04, -0.2, 0));
+        this.locations.push(new THREE.Vector3(0.04, 0, 0)); //-0.2
         //console.log(this.locations);
 
         // make geometry and add first location
@@ -27,6 +27,10 @@ class CellLocations extends Group {
 
         // Add self to parent's update list
         parent.addToUpdateList(this);
+
+        this.bb = new Box3().setFromBufferAttribute(this.geometry.attributes.position);
+        // var bbHelper = new THREE.Box3Helper(this.bb, 0xff0000);
+        // this.add(bbHelper);
     }
 
     update(timeStamp) {
@@ -38,12 +42,17 @@ class CellLocations extends Group {
         this.locations.push(position);
         let buffer = new Float32Array(this.locations.length * 3);
         this.mesh.geometry.setAttribute('position', new THREE.BufferAttribute(buffer, 3).copyVector3sArray(this.locations));
+
+        this.bb.setFromBufferAttribute(this.mesh.geometry.attributes.position);
     }
 
     // adds a new cell location if location is valid. will be called for all positions a bee visits. 
     // measure argument is the length that a particular bee builds with (proportional to its size).
     addNewLocation(position, measure) {
         let numLocations = this.locations.length;
+
+        // restrict to frame
+        if (!this.parent.children[2].bb.containsPoint(new THREE.Vector3().copy(position).setX(0))) { return; }
 
         if (numLocations == 1) {
             // new location must only be appropriate distance from the one existing location
