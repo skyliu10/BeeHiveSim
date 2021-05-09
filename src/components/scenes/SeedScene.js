@@ -17,23 +17,17 @@ class SeedScene extends Scene {
             updateList: [],
             numBees: 25,
             updateLimit: 500000,
-            scale: 0.002
+            scale: 0.013
         };
 
         // Set background to a nice color
         this.background = new Color(0x7ec0ee);
 
-        //const branchRadius = 0.25;
-        //const branch = new Branch(this, branchRadius, 10);
-        //branch.position.set(0, 0, 0);
-
-        //const floor = new Floor(this);
         const cellLocations = new CellLocations(this);
         const cellWalls = new CellWalls(this);
-        const frame = new Frame(this);
+        //const frame = new Frame(this);
         const lights = new BasicLights();
-        //floor.position.set(0, -0.2, 0);
-        this.add(cellLocations, cellWalls, frame, lights);
+        this.add(cellLocations, cellWalls, lights);
 
         // add multiple bees if needed
         // will set this right at the start
@@ -50,7 +44,6 @@ class SeedScene extends Scene {
         }
 
         // Populate GUI
-       // this.state.gui.add(this.state, 'rotationSpeed', -5, 5);
         this.state.gui.add(this.state, 'numBees', 1, 5).step(1);
     }
 

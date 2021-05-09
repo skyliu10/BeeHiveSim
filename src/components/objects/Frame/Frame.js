@@ -7,22 +7,20 @@ class Frame extends Group {
         super();
 
         this.name = 'frame';
-        let x = this.position.x;
-        let y = this.position.y;
-        let z = this.position.z;
+        let scale = parent.state.scale;
 
-        const backGeometry = new THREE.BoxGeometry(0.02, 1, 2);
+        const backGeometry = new THREE.BoxGeometry(0.02, scale * 500, scale * 1000);
         backGeometry.computeBoundingBox();
 
-        const leftGeometry = new THREE.BoxGeometry(0.1, 1.1, 0.1);
-        const rightGeometry = new THREE.BoxGeometry(0.1, 1.1, 0.1);
-        const topGeometry = new THREE.BoxGeometry(0.1, 0.1, 1.9);
-        const bottomGeometry = new THREE.BoxGeometry(0.1, 0.1, 1.9);
+        const leftGeometry = new THREE.BoxGeometry(scale * 50, scale * 550, scale * 50);
+        const rightGeometry = new THREE.BoxGeometry(scale * 50, scale * 550, scale * 50);
+        const topGeometry = new THREE.BoxGeometry(scale * 50, scale * 50, scale * 950);
+        const bottomGeometry = new THREE.BoxGeometry(scale * 50, scale * 50, scale * 950);
 
-        leftGeometry.translate(0, 0, 1);
-        rightGeometry.translate(0, 0, -1);
-        topGeometry.translate(0, 0.5, 0);
-        bottomGeometry.translate(0, -0.5, 0);
+        leftGeometry.translate(0, 0, scale * 500);
+        rightGeometry.translate(0, 0, scale * -500);
+        topGeometry.translate(0, scale * 250, 0);
+        bottomGeometry.translate(0, scale * -250, 0);
 
         const texture = new THREE.TextureLoader().load('https://threejsfundamentals.org/threejs/lessons/resources/images/compressed-but-large-wood-texture.jpg')
         const woodMaterial = new THREE.MeshStandardMaterial({ map:texture });

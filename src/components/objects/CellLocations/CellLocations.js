@@ -1,6 +1,6 @@
 import { Box3, Group, Scene } from 'three';
 import * as THREE from "three";
-const TOLERANCE = 0.001; // should probably be around 0.002. influences how fast new locations are added
+const TOLERANCE = 0.001;
 
 class CellLocations extends Group {
     constructor(parent) {
@@ -12,7 +12,7 @@ class CellLocations extends Group {
         this.locations = [];
 
         // push first location
-        this.locations.push(new THREE.Vector3(0.04, 0, 0)); //-0.2
+        this.locations.push(new THREE.Vector3(0.04, 0, 0));
         //console.log(this.locations);
 
         // make geometry and add first location
@@ -50,15 +50,16 @@ class CellLocations extends Group {
     // measure argument is the length that a particular bee builds with (proportional to its size).
     addNewLocation(position, measure) {
         let numLocations = this.locations.length;
+        let tolerance = this.parent.state.scale / 2;
 
         // restrict to frame
-        if (!this.parent.children[2].bb.containsPoint(new THREE.Vector3().copy(position).setX(0))) { return; }
+        //if (!this.parent.children[2].bb.containsPoint(new THREE.Vector3().copy(position).setX(0))) { return; }
 
         // constrain new location
         if (numLocations == 1) {
             // new location must only be appropriate distance from the one existing location
             let dist = this.locations[0].distanceTo(position);
-            if (Math.abs(dist - measure) < TOLERANCE) { this.updateMesh(position); }
+            if (Math.abs(dist - measure) < tolerance) { this.updateMesh(position); }
         }
 
         if (numLocations > 1) { 
@@ -70,7 +71,7 @@ class CellLocations extends Group {
 
             for (let i = 0; i < numLocations; i++) {
                 let dist1 = this.locations[i].distanceTo(position);
-                if ((measure - dist1) >= TOLERANCE) { 
+                if ((measure - dist1) >= tolerance) { 
                     farEnoughAway = false;
                     break;
                 }
@@ -78,12 +79,12 @@ class CellLocations extends Group {
                 for (let j = 0; j < numLocations; j++) {
                     if (j == i) { continue; }
                     let dist2 = this.locations[j].distanceTo(position);
-                    if ((measure - dist2) >= TOLERANCE) { 
+                    if ((measure - dist2) >= tolerance) { 
                         farEnoughAway = false;
                         break;
                     }
 
-                    if (Math.abs(dist1 - measure) < TOLERANCE && Math.abs(dist2 - measure) < TOLERANCE) {
+                    if (Math.abs(dist1 - measure) < tolerance && Math.abs(dist2 - measure) < tolerance) {
                         apprDistFromTwo = true; 
                     }
                 }

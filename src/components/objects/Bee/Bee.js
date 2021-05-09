@@ -40,13 +40,6 @@ class Bee extends Group {
 
     update(timeStamp) {
         if (timeStamp > this.parent.state.updateLimit) { return; }
-        // if (this.position.x > LIMIT && this.position.y > LIMIT && this.position.z > LIMIT ) {
-        //     var direction = new THREE.Vector3(Math.random() * 2 - 1, 0, Math.random() * 2 - 1).normalize(); 
-        //     // this.position.add(direction);
-        //     var tween = new TWEEN.Tween(this.position).to(this.position.add(direction)).start();
-        // }
-        // this.boundingBox.setFromObject(this);
-        // TWEEN.update();
 
         let direction = new THREE.Vector3();
         let newPosition = new THREE.Vector3().copy(this.position);//.add(new Vector3(0, 0.25, 0)); // correct for weird bee positioning
@@ -55,7 +48,6 @@ class Bee extends Group {
 
         // restrict to bounding box of cell locations
         let bb = new Box3().copy(this.parent.children[0].bb).expandByVector(new THREE.Vector3(0, this.parent.state.scale * 25, this.parent.state.scale * 25));
-        //if (timeStamp > 5000 && timeStamp < 6000) { console.log(bb, newPosition); }
         if (bb.containsPoint(new THREE.Vector3().copy(newPosition).setX(0.03999999910593033))) {
             this.position.addScaledVector(direction, 0.02);
 
@@ -68,18 +60,6 @@ class Bee extends Group {
             this.parent.children[1].addNewDeposit(newPosition);
         }
 
-        // if bee is on border of bounding box (but not top border), "add wax" to floor on side bee is on
-        // else if (position.y < floor.bb.max.y) { 
-        //     let zMid = 0.5 * floor.bb.min.z + 0.5 * floor.bb.max.z
-        //     if (position.z < zMid) { // add to right side of floor
-        //         //console.log("adding to right side");
-        //         floor.addWax(-1 * EXPANSION_RATE, -5 * EXPANSION_RATE, 0, 0);
-        //     }
-        //     else { // add to left side of floor
-        //         //console.log("adding to left side");
-        //         floor.addWax(0, 0, -5 * EXPANSION_RATE, 1 * EXPANSION_RATE);
-        //     }
-        // }
     }
 
 
