@@ -1,6 +1,5 @@
 import { Box3, Group, Scene } from 'three';
 import * as THREE from "three";
-const TOLERANCE = 0.001;
 
 class CellLocations extends Group {
     constructor(parent) {
@@ -50,7 +49,7 @@ class CellLocations extends Group {
     // measure argument is the length that a particular bee builds with (proportional to its size).
     addNewLocation(position, measure) {
         let numLocations = this.locations.length;
-        let tolerance = this.parent.state.scale / 2;
+        let tolerance = this.parent.state.scale;
 
         // restrict to frame
         //if (!this.parent.children[2].bb.containsPoint(new THREE.Vector3().copy(position).setX(0))) { return; }
@@ -75,6 +74,7 @@ class CellLocations extends Group {
                     farEnoughAway = false;
                     break;
                 }
+                let loc1 = this.locations[i];
 
                 for (let j = 0; j < numLocations; j++) {
                     if (j == i) { continue; }
@@ -83,8 +83,11 @@ class CellLocations extends Group {
                         farEnoughAway = false;
                         break;
                     }
+                    let loc2 = this.locations[j];
 
-                    if (Math.abs(dist1 - measure) < tolerance && Math.abs(dist2 - measure) < tolerance) {
+                    if (Math.abs(dist1 - measure) < tolerance && 
+                        Math.abs(dist2 - measure) < tolerance &&
+                        Math.abs(loc1.distanceTo(loc2) - measure) < tolerance) {
                         apprDistFromTwo = true; 
                     }
                 }

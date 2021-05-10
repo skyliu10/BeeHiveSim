@@ -14,7 +14,7 @@ class CellWalls extends Group {
         this.geometry = new THREE.BufferGeometry();
 
         // make mesh and add to scene
-        const material = new THREE.PointsMaterial({color: 0x000000, size: 0.015});
+        const material = new THREE.PointsMaterial({color: 0x000000, size: 0.02});
         this.mesh = new THREE.Points(this.geometry, material);
         this.add(this.mesh);
 
@@ -81,7 +81,7 @@ class CellWalls extends Group {
         if (numSurrounding < 7) { return; } // 6 surrounding + 1 self
 
         // apply circle-around-location constraint, wall thickness constraint
-        if (bestDist > (scale * 11) || Math.abs(bestDist - secondBestDist) < scale) { this.updateMesh(position); }
+        if (bestDist > (scale * 10.3) || Math.abs(bestDist - secondBestDist) < scale) { this.updateMesh(position); }
 
         //console.log(numSurrounding);
     }
