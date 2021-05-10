@@ -3,7 +3,7 @@ import { Scene, Color } from 'three';
 import { Flower, Land, Bee, Branch, Floor, CellLocations, CellWalls, Frame } from 'objects';
 import { BasicLights } from 'lights';
 const RAND_MEASURES = true;
-const VARIANCE = 50000; // smaller = more variance
+const VARIANCE = 500; // smaller = more variance
 
 class SeedScene extends Scene {
     constructor() {
