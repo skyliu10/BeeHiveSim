@@ -1,5 +1,5 @@
 import * as Dat from 'dat.gui';
-import { Scene, Color } from 'three';
+import { Scene, Color, Mesh, BoxGeometry, MeshBasicMaterial } from 'three';
 import { Flower, Land, BeeIndex, Branch, Floor, CellLocations } from 'objects';
 import { BasicLights } from 'lights';
 
@@ -22,18 +22,44 @@ class StartScene extends Scene {
 
         this.background = new Color(0x7ec0ee);
 
+        // create canvas
+        /*const geometry = new BoxGeometry(100, 100, 1);
+        const material = new MeshBasicMaterial(0x7ec0ee);
+        const mesh = new Mesh(geometry, material);
+        this.screen = mesh;
+        this.add(mesh);
+        this.mesh = mesh;*/
+
+        // style
+             
+        var style = document.createElement("style");
+        style.type = "text/css";
+        style.innerHTML = `
+        .note {
+            background-color: yellow;
+        }
+        `;
+        document.head.appendChild(style);
+
         // add text and buttons
         this.divElements = [];
-        this.divElements.push(this.createText("BeeHive Sim", '30%'));
-        this.divElements.push(this.createButton("Start", '40%', startSim));
+        this.divElements.push(this.createText("BEEHIVE SIM", '30%'));
+        this.divElements.push(this.createButton("START", '40%', startSim));
     }
 
     
    createText(str, top) {
+
         const text = document.createElement('div');
         document.body.appendChild(text);
         text.innerHTML = str;
+        text.style.fontFamily = 'Monaco';
+        text.style.fontSize = '60px';
+        text.style.position = 'absolute';
+        text.style.left = (window.innerWidth - text.clientWidth) / 2 + 'px';
         text.style.top = top;
+
+    
         return text;
 
     }
@@ -42,8 +68,23 @@ class StartScene extends Scene {
         const button = document.createElement('button');
         document.body.appendChild(button);
         button.innerHTML = str;
-        button.onclick = callback;
+    
+        button.style.padding = '0.5em 3em';
+        button.style.border = '0.16em solid #FFFF00';
+        button.style.margin = '0 0.3em 0.3em 0';
+        button.style.boxSizing = 'border-box';
+        button.style.textAlign = 'center';
+        button.style.transition = 'all 0.15s';
+        button.style.textDecoration = 'none';
+        button.style.display = 'inline-block';
+        button.style.fontFamily = 'Monaco';
+        button.style.fontWeight = '400';
+        button.style.position = 'absolute';
+        button.style.backgroundColor = 'Transparent';
+        button.style.fontSize = '30px';
+        button.style.left = (window.innerWidth - button.clientWidth) / 2 + 'px';
         button.style.top = top;
+        button.onclick = callback;
         return button;
     }
 
