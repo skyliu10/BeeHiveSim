@@ -44,6 +44,9 @@ class Bee extends Group {
         direction.set(0, Math.random() * 2 - 1, Math.random() * 2 - 1).normalize();
         newPosition.addScaledVector(direction, 0.02);
 
+        // restrict to frame bounding box
+        if (!this.parent.bb.containsPoint(newPosition)) { return; }
+
         // restrict to bounding box of cell locations
         let bb = new Box3().copy(this.parent.children[0].bb).expandByVector(new THREE.Vector3(0, this.parent.state.scale * 25, this.parent.state.scale * 25));
         if (bb.containsPoint(new THREE.Vector3().copy(newPosition).setX(0.03999999910593033))) {

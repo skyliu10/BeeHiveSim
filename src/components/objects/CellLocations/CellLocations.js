@@ -49,7 +49,7 @@ class CellLocations extends Group {
     // measure argument is the length that a particular bee builds with (proportional to its size).
     addNewLocation(position, measure) {
         let numLocations = this.locations.length;
-        let tolerance = this.parent.state.scale;
+        let tolerance = this.parent.state.scale / 2;
 
         // restrict to frame
         //if (!this.parent.children[2].bb.containsPoint(new THREE.Vector3().copy(position).setX(0))) { return; }
@@ -65,7 +65,7 @@ class CellLocations extends Group {
             // new location must be appropriate distance from 2 existing locations which are also 
             // an appropriate distance from each other, and must be further than that distance 
             // from all other locations
-            let apprDistFromTwo = false;;
+            let apprDistFromTwo = false;
             let farEnoughAway = true;
 
             for (let i = 0; i < numLocations; i++) {
@@ -87,7 +87,7 @@ class CellLocations extends Group {
 
                     if (Math.abs(dist1 - measure) < tolerance && 
                         Math.abs(dist2 - measure) < tolerance &&
-                        Math.abs(loc1.distanceTo(loc2) - measure) < tolerance) {
+                        Math.abs(loc1.distanceTo(loc2) - measure) < tolerance * 10) {
                         apprDistFromTwo = true; 
                     }
                 }

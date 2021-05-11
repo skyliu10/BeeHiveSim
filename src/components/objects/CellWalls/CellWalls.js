@@ -1,4 +1,4 @@
-import { Group, Scene } from 'three';
+import { Group, Scene, BufferGeometryUtils } from 'three';
 import * as THREE from "three";
 
 class CellWalls extends Group {
@@ -31,6 +31,16 @@ class CellWalls extends Group {
         this.deposits.push(position);
         let buffer = new Float32Array(this.deposits.length * 3);
         this.mesh.geometry.setAttribute('position', new THREE.BufferAttribute(buffer, 3).copyVector3sArray(this.deposits));
+
+        // var tempDeposits = [];
+        // tempDeposits.push(position);
+        // tempDeposits.push(new THREE.Vector3().copy(position).setX(0));
+        // var tempGeometry = new THREE.BufferGeometry();
+        // let tempBuffer = new Float32Array(6);
+        // tempGeometry.setAttribute('position', new THREE.BufferAttribute(tempBuffer, 3).copyVector3sArray(tempDeposits));
+
+        // const newGeometry = THREE.BufferGeometryUtils.mergeBufferGeometries([this.mesh.geometry, tempGeometry], false);
+        // this.mesh.geometry = newGeometry;
     }
 
     // adds a cell wall wax deposit, if in valid location.
@@ -75,7 +85,7 @@ class CellWalls extends Group {
         let numSurrounding = 0;
         for (let i = 0; i < locations.length; i++) {
             let neighborDist = closestLocation.distanceTo(locations[i]);
-            if (neighborDist < (scale * 30)) { numSurrounding++; }
+            if (neighborDist < (scale * 25)) { numSurrounding++; }
         }
 
         if (numSurrounding < 7) { return; } // 6 surrounding + 1 self

@@ -2,8 +2,9 @@ import * as Dat from 'dat.gui';
 import { Scene, Color } from 'three';
 import { Flower, Land, Bee, Branch, Floor, CellLocations, CellWalls, Frame } from 'objects';
 import { BasicLights } from 'lights';
+import * as THREE from "three";
 const RAND_MEASURES = true;
-const VARIANCE = 500; // smaller = more variance
+const VARIANCE = 15000; // smaller = more variance
 
 class SeedScene extends Scene {
     constructor() {
@@ -16,7 +17,7 @@ class SeedScene extends Scene {
             rotationSpeed: 1,
             updateList: [],
             numBees: 25,
-            updateLimit: 500000,
+            updateLimit: 50000000,
             scale: 0.013
         };
 
@@ -45,6 +46,10 @@ class SeedScene extends Scene {
 
         // Populate GUI
         this.state.gui.add(this.state, 'numBees', 1, 5).step(1);
+
+        this.bb = new THREE.Box3(new THREE.Vector3(0.04, -1, -1.5), new THREE.Vector3(0.04, 1, 1.5));
+        var bbHelper = new THREE.Box3Helper(this.bb, 0xff0000);
+        this.add(bbHelper);
     }
 
     addToUpdateList(object) {
