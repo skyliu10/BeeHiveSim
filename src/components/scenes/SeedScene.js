@@ -45,7 +45,7 @@ class SeedScene extends Scene {
         }
 
         // Populate GUI
-        this.state.gui.add(this.state, 'numBees', 1, 5).step(1);
+     //   this.state.gui.add(this.state, 'numBees', 1, 5).step(1);
 
         this.bb = new THREE.Box3(new THREE.Vector3(0.04, -1, -1.5), new THREE.Vector3(0.04, 1, 1.5));
         var bbHelper = new THREE.Box3Helper(this.bb, 0xff0000);

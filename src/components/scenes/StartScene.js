@@ -1,5 +1,5 @@
 import * as Dat from 'dat.gui';
-import { Scene, Color, Mesh, BoxGeometry, MeshBasicMaterial } from 'three';
+import { Scene, Color, Mesh, BoxGeometry, MeshBasicMaterial, MeshLambertMaterial } from 'three';
 import { Flower, Land, BeeIndex, Branch, Floor, CellLocations } from 'objects';
 import { BasicLights } from 'lights';
 
@@ -44,9 +44,22 @@ class StartScene extends Scene {
         // add text and buttons
         this.divElements = [];
         this.divElements.push(this.createText("BEEHIVE SIM", '30%'));
-        this.divElements.push(this.createButton("START", '40%', startSim));
+        this.divElements.push(this.createLabel("Audio", '50%'));
+        this.divElements.push(this.createInput(this.fun));
+        this.divElements.push(this.createLabel("Number of Bees", '45%'));
+        this.divElements.push(this.createDropdown(this.audio));
+        
+        this.divElements.push(this.createButton("START", '60%', startSim));
+       
+       
     }
 
+    fun(){
+        console.log(document.getElementById("beeInput").value);
+    }
+    audio(){
+        console.log(document.getElementById("audio").value);
+    }
     
    createText(str, top) {
 
@@ -62,6 +75,70 @@ class StartScene extends Scene {
     
         return text;
 
+    }
+
+    createLabel(str, top) {
+
+        const text = document.createElement('div');
+        document.body.appendChild(text);
+        text.innerHTML = str;
+        text.style.fontFamily = 'Monaco';
+        text.style.fontSize = '15px';
+        text.style.position = 'absolute';
+        text.style.left = ((window.innerWidth - text.clientWidth) / 2.5)  + 'px';
+        text.style.top = top;
+
+    
+        return text;
+
+    }
+
+
+    createInput(fun) {
+
+        const input = document.createElement('input');
+        input.type = "text";
+        input.id = 'beeInput';
+        input.className = "css-class-name";
+
+        input.style.fontFamily = "Monaco";
+        input.style.position = 'absolute';
+        input.style.left = ((window.innerWidth - input.clientWidth) / 2)  + 'px';
+        input.style.top = '45%';
+        input.oninput = fun;
+
+        document.body.appendChild(input);
+        
+        return input;
+
+    }
+
+    createDropdown(audio) {
+        const dropdown = document.createElement('select');
+        dropdown.name = "audio";
+        dropdown.id = "audio";
+        dropdown.style.fontFamily = 'Monaco';
+        dropdown.style.borderColor = 'transparent';
+        dropdown.style.backgroundColor = 'yellow';
+        dropdown.style.cursor = 'pointer';
+
+        var option1 = document.createElement('option');
+        option1.value = "option1";
+        option1.text = "bees in the trap";
+        dropdown.appendChild(option1);
+       var option2 = document.createElement('option');
+        option2.value = "option2";
+        option2.text = "buzzing";
+        dropdown.appendChild(option2);
+        dropdown.oninput = audio;
+        document.body.appendChild(dropdown);
+   
+        dropdown.style.position = 'absolute';
+        dropdown.style.left = (window.innerWidth - dropdown.clientWidth) / 2 + 'px';
+        dropdown.style.top = '50%';
+       
+        return dropdown;
+        
     }
 
     createButton(str, top, callback) {

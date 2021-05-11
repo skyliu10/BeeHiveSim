@@ -44,6 +44,7 @@ function startSim() {
     isStart = false;
     isSim = true;
     simScene = new SeedScene();
+  //  var audio = audio;
     
 };
 
