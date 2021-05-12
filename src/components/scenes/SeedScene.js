@@ -7,16 +7,17 @@ const RAND_MEASURES = true;
 const VARIANCE = 15000; // smaller = more variance
 
 class SeedScene extends Scene {
-    constructor() {
+    constructor(beeNum) {
         // Call parent Scene() constructor
         super();
+        console.log(beeNum);
 
         // Init state
         this.state = {
             gui: new Dat.GUI(), // Create GUI for scene
             rotationSpeed: 1,
             updateList: [],
-            numBees: 25,
+            numBees: beeNum,
             updateLimit: 50000000,
             scale: 0.013
         };

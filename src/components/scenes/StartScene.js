@@ -10,6 +10,8 @@ class StartScene extends Scene {
 
         this.state = {
           updateList: [],
+          beeNum: 20,
+        
         };
 
         // add bees
@@ -21,6 +23,7 @@ class StartScene extends Scene {
         }
 
         this.background = new Color(0x7ec0ee);
+        
 
         // create canvas
         /*const geometry = new BoxGeometry(100, 100, 1);
@@ -32,34 +35,56 @@ class StartScene extends Scene {
 
         // style
              
-        var style = document.createElement("style");
+       /* var style = document.createElement("style");
         style.type = "text/css";
         style.innerHTML = `
         .note {
             background-color: yellow;
         }
         `;
-        document.head.appendChild(style);
+        document.head.appendChild(style);*/
 
         // add text and buttons
         this.divElements = [];
         this.divElements.push(this.createText("BEEHIVE SIM", '30%'));
         this.divElements.push(this.createLabel("Audio", '50%'));
-        this.divElements.push(this.createInput(this.fun));
+        var input = this.createInput(this.fun);
+        this.divElements.push(input);
         this.divElements.push(this.createLabel("Number of Bees", '45%'));
         this.divElements.push(this.createDropdown(this.audio));
+        var button = this.createButton("START", '60%', startSim);
+        this.divElements.push(button);
+       // button.onclick = startSim.bind(null, this.beeNum);
+    
+      /* but.addEventListener('click', (e) => {
+        console.log(document.getElementById("beeInput").value);
+        console.log('click');
+        startSim.bind(null, document.getElementById("beeInput").value);
         
-        this.divElements.push(this.createButton("START", '60%', startSim));
-       
+       });*/
+      // var numB = document.getElementById("beeInput").value;
+     //  document.getElementById('button').addEventListener("click", this.start(startSim));
+
+    //document.getElementById("beeInput")
        
     }
 
     fun(){
-        console.log(document.getElementById("beeInput").value);
+       // console.log(document.getElementById("beeInput").value);
+        this.beeNum = document.getElementById("beeInput").value;
+        console.log(this.beeNum);
+       
     }
     audio(){
         console.log(document.getElementById("audio").value);
     }
+
+    /* start(startSim){
+       // document.getElementById('button').addEventListener("click", startSim.bind(null, this.beeNum));
+       console.log('hi');
+       var input = document.getElementById("beeInput").value;
+       startSim.bind(null, input);
+     }*/
     
    createText(str, top) {
 
@@ -100,7 +125,7 @@ class StartScene extends Scene {
         input.type = "text";
         input.id = 'beeInput';
         input.className = "css-class-name";
-
+        input.value = 20;
         input.style.fontFamily = "Monaco";
         input.style.position = 'absolute';
         input.style.left = ((window.innerWidth - input.clientWidth) / 2)  + 'px';
@@ -140,12 +165,12 @@ class StartScene extends Scene {
         return dropdown;
         
     }
-
-    createButton(str, top, callback) {
+   
+    createButton(str, top, startSim) {
         const button = document.createElement('button');
         document.body.appendChild(button);
         button.innerHTML = str;
-    
+        button.id = "button";
         button.style.padding = '0.5em 3em';
         button.style.border = '0.16em solid #FFFF00';
         button.style.margin = '0 0.3em 0.3em 0';
@@ -161,9 +186,14 @@ class StartScene extends Scene {
         button.style.fontSize = '30px';
         button.style.left = (window.innerWidth - button.clientWidth) / 2 + 'px';
         button.style.top = top;
-        button.onclick = callback;
-        return button;
+       
+      // button.onclick = start(startSim);
+        button.onclick = startSim.bind(null, document.getElementById('beeInput').value);
+     
+     return button;
     }
+
+   
 
       /* Event handlers */
       resizeHandler() {
@@ -179,10 +209,11 @@ class StartScene extends Scene {
     }
 
     update() {
-        const { updateList} = this.state;
+        const { updateList, beeNum} = this.state;
         // this.rotation.y = (rotationSpeed * timeStamp) / 10000;
-        
+       // document.getElementById('button').addEventListener("click", startSim.bind(null, document.getElementById("beeInput").value));
         // Call update for each object in the updateList
+        this.beeNum = beeNum;
         for (const obj of updateList) {
             obj.update();
         }
@@ -202,5 +233,14 @@ class StartScene extends Scene {
 
 
 }
+
+
+
+/*function start(startSim){
+    // document.getElementById('button').addEventListener("click", startSim.bind(null, this.beeNum));
+    console.log('hi');
+    var input = document.getElementById("beeInput").value;
+    startSim.bind(null, input);
+  };*/
 
 export default StartScene;

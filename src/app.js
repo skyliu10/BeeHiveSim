@@ -6,7 +6,7 @@
  * handles window resizes.
  *
  */
-import { WebGLRenderer, PerspectiveCamera, Vector3 } from 'three';
+import { WebGLRenderer, PerspectiveCamera, Vector3, Audio, AudioListener, AudioLoader } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { SeedScene, StartScene } from 'scenes';
 
@@ -15,8 +15,9 @@ let scene = new StartScene(startSim);
 let isStart = true;
 let isSim = false;
 let simScene;
-let camera = new PerspectiveCamera();
+const camera = new PerspectiveCamera();
 const renderer = new WebGLRenderer({ antialias: true });
+
 
 // Set up camera
 camera.position.set(6, 3, -10);
@@ -38,13 +39,37 @@ controls.minDistance = 4;
 controls.maxDistance = 16;
 controls.update();
 
+
+// add audio
+
+function uploadAudio() {
+    var audioListener = new AudioListener();
+    camera.add(audioListener);
+    var sound = new Audio(audioListener);
+    var audioLoader = new AudioLoader();
+
+    // audio source from https://www.freesoundslibrary.com/bee-noise/#google_vignette
+    audioLoader.load('./src/components/audio/Bee-noise.mp3', function( buffer ) {
+        sound.setBuffer( buffer );
+        sound.setLoop(true);
+   sound.setVolume(0.5);
+        sound.play();
+
+    });
+    
+
+}
+
+
 // call SeedScene to start simulation
-function startSim() {
+function startSim(beeNum) {
     scene.destruct();
     isStart = false;
     isSim = true;
-    simScene = new SeedScene();
-  //  var audio = audio;
+    console.log(beeNum);
+    simScene = new SeedScene(beeNum);
+    uploadAudio();
+  
     
 };
 
@@ -75,3 +100,6 @@ const windowResizeHandler = () => {
 };
 windowResizeHandler();
 window.addEventListener('resize', windowResizeHandler, false);
+
+
+
