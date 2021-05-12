@@ -10,6 +10,11 @@ import { WebGLRenderer, PerspectiveCamera, Vector3, Audio, AudioListener, AudioL
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { SeedScene, StartScene } from 'scenes';
 
+// IMPORT AUDIO
+ // audio source from https://www.freesoundslibrary.com/bee-noise/#google_vignette
+import BUZZ from "../src/components/audio/Bee-noise.mp3";
+import BEEZ from "../src/components/audio/beez.mp3";
+
 // Initialize core ThreeJS components
 let scene = new StartScene(startSim);
 let isStart = true;
@@ -48,8 +53,7 @@ function uploadAudio() {
     var sound = new Audio(audioListener);
     var audioLoader = new AudioLoader();
 
-    // audio source from https://www.freesoundslibrary.com/bee-noise/#google_vignette
-    audioLoader.load('./src/components/audio/Bee-noise.mp3', function( buffer ) {
+    audioLoader.load(BEEZ, function( buffer ) {
         sound.setBuffer( buffer );
         sound.setLoop(true);
    sound.setVolume(0.5);
