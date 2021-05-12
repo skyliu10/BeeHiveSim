@@ -47,11 +47,11 @@ class StartScene extends Scene {
         // add text and buttons
         this.divElements = [];
         this.divElements.push(this.createText("BEEHIVE SIM", '30%'));
-        this.divElements.push(this.createLabel("Audio", '50%'));
+       // this.divElements.push(this.createLabel("Audio", '50%'));
       //  var input = this.createInput(this.fun);
       //  this.divElements.push(input);
-        this.divElements.push(this.createLabel("Number of Bees", '45%'));
-        this.divElements.push(this.createDropdown(this.audio));
+      //  this.divElements.push(this.createLabel("Number of Bees", '45%'));
+       // this.divElements.push(this.createDropdown(this.audio));
       //  var button = this.createButton("START", '60%', startSim);
        // this.divElements.push(button);
        // button.onclick = startSim.bind(null, this.beeNum);
@@ -234,13 +234,5 @@ class StartScene extends Scene {
 
 }
 
-
-
-/*function start(startSim){
-    // document.getElementById('button').addEventListener("click", startSim.bind(null, this.beeNum));
-    console.log('hi');
-    var input = document.getElementById("beeInput").value;
-    startSim.bind(null, input);
-  };*/
 
 export default StartScene;

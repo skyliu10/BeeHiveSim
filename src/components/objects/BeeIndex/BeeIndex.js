@@ -3,7 +3,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import MODEL from './Bee_01.glb';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 import * as THREE from "three";
-const LIMIT = 100;
+const LIMIT = 50;
 const EXPANSION_RATE = 0.0005;
 
 class BeeIndex extends Group {

@@ -10,7 +10,7 @@ class SeedScene extends Scene {
     constructor(beeNum) {
         // Call parent Scene() constructor
         super();
-        console.log(beeNum);
+       
 
         // Init state
         this.state = {

@@ -28,6 +28,10 @@ module.exports = {
                 exclude: path.resolve(__dirname, './node_modules/'),
             },
             {
+                test: /\.css$/i,
+                use: ["style-loader", "css-loader"],
+              },
+            {
                 test: /\.(vert|frag|glsl|shader|txt)$/i,
                 use: 'raw-loader',
                 exclude: path.resolve(__dirname, './node_modules/'),
@@ -49,6 +53,7 @@ module.exports = {
             lights$: path.resolve(__dirname, 'src/components/lights'),
             objects$: path.resolve(__dirname, 'src/components/objects'),
             scenes$: path.resolve(__dirname, 'src/components/scenes'),
+            audio$: path.resolve(__dirname, 'src/components/audio'),
         },
     },
     plugins: [
