@@ -23,7 +23,7 @@ class StartScene extends Scene {
         }
 
         this.background = new Color(0x7ec0ee);
-        
+
 
         // create canvas
         /*const geometry = new BoxGeometry(100, 100, 1);
@@ -48,12 +48,12 @@ class StartScene extends Scene {
         this.divElements = [];
         this.divElements.push(this.createText("BEEHIVE SIM", '30%'));
         this.divElements.push(this.createLabel("Audio", '50%'));
-        var input = this.createInput(this.fun);
-        this.divElements.push(input);
+      //  var input = this.createInput(this.fun);
+      //  this.divElements.push(input);
         this.divElements.push(this.createLabel("Number of Bees", '45%'));
         this.divElements.push(this.createDropdown(this.audio));
-        var button = this.createButton("START", '60%', startSim);
-        this.divElements.push(button);
+      //  var button = this.createButton("START", '60%', startSim);
+       // this.divElements.push(button);
        // button.onclick = startSim.bind(null, this.beeNum);
     
       /* but.addEventListener('click', (e) => {
@@ -72,7 +72,7 @@ class StartScene extends Scene {
     fun(){
        // console.log(document.getElementById("beeInput").value);
         this.beeNum = document.getElementById("beeInput").value;
-        console.log(this.beeNum);
+        console.log(this.state.beeNum);
        
     }
     audio(){
@@ -188,7 +188,7 @@ class StartScene extends Scene {
         button.style.top = top;
        
       // button.onclick = start(startSim);
-        button.onclick = startSim.bind(null, document.getElementById('beeInput').value);
+        button.onclick = startSim.bind(null, this.state.beeNum);
      
      return button;
     }
@@ -209,11 +209,11 @@ class StartScene extends Scene {
     }
 
     update() {
-        const { updateList, beeNum} = this.state;
+        const { updateList} = this.state;
         // this.rotation.y = (rotationSpeed * timeStamp) / 10000;
        // document.getElementById('button').addEventListener("click", startSim.bind(null, document.getElementById("beeInput").value));
         // Call update for each object in the updateList
-        this.beeNum = beeNum;
+       // this.beeNum = beeNum;
         for (const obj of updateList) {
             obj.update();
         }

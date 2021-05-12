@@ -17,11 +17,98 @@ import BEEZ from "../src/components/audio/beez.mp3";
 
 // Initialize core ThreeJS components
 let scene = new StartScene(startSim);
+
 let isStart = true;
 let isSim = false;
 let simScene;
 const camera = new PerspectiveCamera();
 const renderer = new WebGLRenderer({ antialias: true });
+let divElements = [];
+let audioChoice = BEEZ;
+
+
+const button = document.createElement('button');
+        document.body.appendChild(button);
+        button.innerHTML = "start"
+        button.id = "button";
+        button.style.padding = '0.5em 3em';
+        button.style.border = '0.16em solid #FFFF00';
+        button.style.margin = '0 0.3em 0.3em 0';
+        button.style.boxSizing = 'border-box';
+        button.style.textAlign = 'center';
+        button.style.transition = 'all 0.15s';
+        button.style.textDecoration = 'none';
+        button.style.display = 'inline-block';
+        button.style.fontFamily = 'Monaco';
+        button.style.fontWeight = '400';
+        button.style.position = 'absolute';
+        button.style.backgroundColor = 'Transparent';
+        button.style.fontSize = '30px';
+        button.style.top = '60%';
+        button.style.left = (window.innerWidth - button.clientWidth) / 2 + 'px';
+       
+       divElements.push(button);
+
+        const input = document.createElement('input');
+        input.type = "text";
+        input.id = 'beeInput';
+        input.className = "css-class-name";
+        input.value = 20;
+        var beeN = input.value;
+        input.style.fontFamily = "Monaco";
+        input.style.position = 'absolute';
+        input.style.left = ((window.innerWidth - input.clientWidth) / 2)  + 'px';
+        input.style.top = '45%';
+        input.oninput = inputNumBees;
+
+        document.body.appendChild(input);
+        divElements.push(input);
+
+        button.addEventListener("click", onButtClick, false);
+
+        const dropdown = document.createElement('select');
+        dropdown.name = "audio";
+        dropdown.id = "audio";
+        dropdown.style.fontFamily = 'Monaco';
+        dropdown.style.borderColor = 'transparent';
+        dropdown.style.backgroundColor = 'yellow';
+        dropdown.style.cursor = 'pointer';
+
+        var option1 = document.createElement('option');
+        option1.value = "option1";
+        option1.text = "bees in the trap";
+        dropdown.appendChild(option1);
+       var option2 = document.createElement('option');
+        option2.value = "option2";
+        option2.text = "buzzing";
+        dropdown.appendChild(option2);
+        dropdown.addEventListener('change', onAudio, false);
+        document.body.appendChild(dropdown);
+   
+        dropdown.style.position = 'absolute';
+        dropdown.style.left = (window.innerWidth - dropdown.clientWidth) / 2 + 'px';
+        dropdown.style.top = '50%';
+    divElements.push(dropdown);
+
+function onButtClick(event) {
+    startSim(beeN);
+}
+
+function inputNumBees(){
+    beeN = document.getElementById('beeInput').value;
+}
+
+function onAudio(event){
+    if (event.target.value == option2.value) {
+        audioChoice = BUZZ;
+    }
+    else {
+        audioChoice = BEEZ;
+    }
+    
+}
+
+
 
 
 // Set up camera
@@ -53,7 +140,7 @@ function uploadAudio() {
     var sound = new Audio(audioListener);
     var audioLoader = new AudioLoader();
 
-    audioLoader.load(BEEZ, function( buffer ) {
+    audioLoader.load(audioChoice, function( buffer ) {
         sound.setBuffer( buffer );
         sound.setLoop(true);
    sound.setVolume(0.5);
@@ -67,10 +154,13 @@ function uploadAudio() {
 
 // call SeedScene to start simulation
 function startSim(beeNum) {
+    divElements.forEach((divElement) => divElement.remove());
+    divElements = null;
     scene.destruct();
     isStart = false;
     isSim = true;
     console.log(beeNum);
+ //   console.log('click');
     simScene = new SeedScene(beeNum);
     uploadAudio();
   
