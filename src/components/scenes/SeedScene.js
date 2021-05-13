@@ -1,5 +1,5 @@
 import * as Dat from 'dat.gui';
-import { Scene, Color } from 'three';
+import { Scene, Color, Camera } from 'three';
 import { Flower, Land, Bee, Branch, Floor, CellLocations, CellWalls, Frame, QueenBee } from 'objects';
 import { BasicLights } from 'lights';
 import * as THREE from "three";
@@ -85,6 +85,7 @@ class SeedScene extends Scene {
         for (const obj of updateList) {
             obj.update(timeStamp);
         }
+ 
     }
 }
 
