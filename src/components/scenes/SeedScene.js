@@ -4,10 +4,10 @@ import { Flower, Land, Bee, Branch, Floor, CellLocations, CellWalls, Frame } fro
 import { BasicLights } from 'lights';
 import * as THREE from "three";
 const RAND_MEASURES = true;
-const VARIANCE = 15000; // smaller = more variance
+//const VARIANCE = 15000; // smaller = more variance
 
 class SeedScene extends Scene {
-    constructor(beeNum) {
+    constructor(beeNum, varianceIn) {
         // Call parent Scene() constructor
         super();
        
@@ -19,7 +19,8 @@ class SeedScene extends Scene {
             updateList: [],
             numBees: beeNum,
             updateLimit: 50000000,
-            scale: 0.013
+            scale: 0.013,
+            variance: varianceIn,
         };
 
         // Set background to a nice color
@@ -37,7 +38,7 @@ class SeedScene extends Scene {
             let scale = this.state.scale;
             // randomize bee size, and thus construction measuring
             if (RAND_MEASURES) {
-                let rand = (Math.random() * 2 - 1) / VARIANCE;
+                let rand = (Math.random() * 2 - 1) / variance;
                 scale += rand;
             }
             let bee = new Bee(this, scale);

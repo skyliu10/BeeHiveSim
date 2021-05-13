@@ -72,6 +72,20 @@ input.oninput = inputNumBees;
 document.body.appendChild(input);
 divElements.push(input);
 
+const inputVar = document.createElement('input');
+inputVar.type = "text";
+inputVar.id = 'varInput';
+inputVar.className = "css-class-name";
+inputVar.value = 15000;
+var varN = inputVar.value;
+inputVar.style.fontFamily = "Monaco";
+inputVar.style.position = 'absolute';
+inputVar.style.left = ((window.innerWidth - inputVar.clientWidth) / 2) + 'px';
+inputVar.style.top = '40%';
+inputVar.oninput = inputVariance;
+document.body.appendChild(inputVar);
+divElements.push(inputVar);
+
 // add audio select
 const dropdown = document.createElement('select');
 dropdown.name = "audio";
@@ -105,15 +119,23 @@ var labelBee = createLabel("Number of Bees", '45%');
 divElements.push(labelBee);
 var labelAudio = createLabel("Audio", '50%');
 divElements.push(labelAudio);
+var labelVar = createLabel("Variance", '40%');
+divElements.push(labelVar);
 
 // function for button click
 function onButtClick(event) {
-    startSim(beeN);
+    startSim(beeN, varN);
 }
 
 // function for number of bees input
 function inputNumBees() {
     beeN = document.getElementById('beeInput').value;
+}
+
+// function for variance
+function inputVariance() {
+    varN = document.getElementById('varInput').value;
+    //varN = varN / 1000;
 }
 
 // function for audio option change 
