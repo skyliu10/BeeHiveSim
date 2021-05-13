@@ -11,7 +11,7 @@ class SeedScene extends Scene {
         // Call parent Scene() constructor
         super();
        
-        console.log(varianceIn);
+       // console.log(varianceIn);
         // Init state
         this.state = {
             gui: new Dat.GUI(), // Create GUI for scene

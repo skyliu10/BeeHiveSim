@@ -115,11 +115,11 @@ dropdown.style.top = '50%';
 divElements.push(dropdown);
 
 // create labels
-var labelBee = createLabel("Number of Bees", '45%');
+var labelBee = createLabel("number of bees", '45%');
 divElements.push(labelBee);
-var labelAudio = createLabel("Audio", '50%');
+var labelAudio = createLabel("audio", '50%');
 divElements.push(labelAudio);
-var labelVar = createLabel("Variance", '40%');
+var labelVar = createLabel("variance", '40%');
 divElements.push(labelVar);
 
 // function for button click
