@@ -233,6 +233,8 @@ controls.update();
 
 // add audio
 function uploadAudio() {
+    if (audioChoice == 'none') { return; }
+
     var audioListener = new AudioListener();
     camera.add(audioListener);
     var sound = new Audio(audioListener);
