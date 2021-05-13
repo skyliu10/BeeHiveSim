@@ -25,52 +25,17 @@ class StartScene extends Scene {
         this.background = new Color(0x7ec0ee);
 
 
-        // create canvas
-        /*const geometry = new BoxGeometry(100, 100, 1);
-        const material = new MeshBasicMaterial(0x7ec0ee);
-        const mesh = new Mesh(geometry, material);
-        this.screen = mesh;
-        this.add(mesh);
-        this.mesh = mesh;*/
-
-        // style
-             
-       /* var style = document.createElement("style");
-        style.type = "text/css";
-        style.innerHTML = `
-        .note {
-            background-color: yellow;
-        }
-        `;
-        document.head.appendChild(style);*/
-
-        // add text and buttons
-        this.divElements = [];
-        this.divElements.push(this.createText("BEEHIVE SIM", '30%'));
-       // this.divElements.push(this.createLabel("Audio", '50%'));
-      //  var input = this.createInput(this.fun);
-      //  this.divElements.push(input);
-      //  this.divElements.push(this.createLabel("Number of Bees", '45%'));
-       // this.divElements.push(this.createDropdown(this.audio));
-      //  var button = this.createButton("START", '60%', startSim);
-       // this.divElements.push(button);
-       // button.onclick = startSim.bind(null, this.beeNum);
-    
-      /* but.addEventListener('click', (e) => {
-        console.log(document.getElementById("beeInput").value);
-        console.log('click');
-        startSim.bind(null, document.getElementById("beeInput").value);
         
-       });*/
-      // var numB = document.getElementById("beeInput").value;
-     //  document.getElementById('button').addEventListener("click", this.start(startSim));
-
-    //document.getElementById("beeInput")
+       // this.divElements = [];
+       // this.divElements.push(this.createText("BEEHIVE SIM", '30%'));
+    
        
     }
 
+    /* old element creation - now moved to app.js */
+    /*
     fun(){
-       // console.log(document.getElementById("beeInput").value);
+      
         this.beeNum = document.getElementById("beeInput").value;
         console.log(this.state.beeNum);
        
@@ -79,12 +44,7 @@ class StartScene extends Scene {
         console.log(document.getElementById("audio").value);
     }
 
-    /* start(startSim){
-       // document.getElementById('button').addEventListener("click", startSim.bind(null, this.beeNum));
-       console.log('hi');
-       var input = document.getElementById("beeInput").value;
-       startSim.bind(null, input);
-     }*/
+   
     
    createText(str, top) {
 
@@ -187,13 +147,13 @@ class StartScene extends Scene {
         button.style.left = (window.innerWidth - button.clientWidth) / 2 + 'px';
         button.style.top = top;
        
-      // button.onclick = start(startSim);
+     
         button.onclick = startSim.bind(null, this.state.beeNum);
      
      return button;
     }
 
-   
+   */
 
       /* Event handlers */
       resizeHandler() {

@@ -28,16 +28,28 @@ const renderer = new WebGLRenderer({ antialias: true });
 let divElements = [];
 let audioChoice = BEEZ;
 
+
 // add html elemnts to scene
 
 //hexagon butotn
 
+// add title
+const text = document.createElement('div');
+        document.body.appendChild(text);
+        text.innerHTML = "BEEHIVE SIM";
+        text.style.fontFamily = 'Monaco';
+        text.style.fontSize = '60px';
+        text.style.position = 'absolute';
+        text.style.left = (window.innerWidth - text.clientWidth) / 2 + 'px';
+        text.style.top = '35%';
+        divElements.push(text);
 
 // add start button
 const button = document.createElement('button');
 document.body.appendChild(button);
 button.innerHTML = "start"
 button.id = "button";
+button.className = 'button';
 button.style.padding = '0.5em 3em';
 button.style.border = '0.16em solid #FFFF00';
 button.style.margin = '0 0.3em 0.3em 0';
@@ -61,13 +73,13 @@ divElements.push(button);
 const input = document.createElement('input');
 input.type = "text";
 input.id = 'beeInput';
-input.className = "css-class-name";
+input.className = "input";
 input.value = 40;
 var beeN = input.value;
 input.style.fontFamily = "Monaco";
 input.style.position = 'absolute';
-input.style.left = ((window.innerWidth - input.clientWidth) / 2) + 'px';
-input.style.top = '45%';
+input.style.left = (input.clientWidth / 2) + ((window.innerWidth - input.clientWidth) / 2) + 'px';
+input.style.top = '50%';
 input.oninput = inputNumBees;
 document.body.appendChild(input);
 divElements.push(input);
@@ -75,13 +87,13 @@ divElements.push(input);
 const inputVar = document.createElement('input');
 inputVar.type = "text";
 inputVar.id = 'varInput';
-inputVar.className = "css-class-name";
+inputVar.className = "input";
 inputVar.value = 15000;
 var varN = inputVar.value;
 inputVar.style.fontFamily = "Monaco";
 inputVar.style.position = 'absolute';
-inputVar.style.left = ((window.innerWidth - inputVar.clientWidth) / 2) + 'px';
-inputVar.style.top = '40%';
+inputVar.style.left = (inputVar.clientWidth / 2) + ((window.innerWidth - inputVar.clientWidth) / 2) + 'px';
+inputVar.style.top = '45%';
 inputVar.oninput = inputVariance;
 document.body.appendChild(inputVar);
 divElements.push(inputVar);
@@ -90,6 +102,7 @@ divElements.push(inputVar);
 const dropdown = document.createElement('select');
 dropdown.name = "audio";
 dropdown.id = "audio";
+dropdown.className = "dropdown";
 dropdown.style.fontFamily = 'Monaco';
 dropdown.style.borderColor = 'transparent';
 dropdown.style.backgroundColor = 'yellow';
@@ -110,16 +123,16 @@ dropdown.appendChild(option3);
 dropdown.addEventListener('change', onAudio, false);
 document.body.appendChild(dropdown);
 dropdown.style.position = 'absolute';
-dropdown.style.left = (window.innerWidth - dropdown.clientWidth) / 2 + 'px';
-dropdown.style.top = '50%';
+dropdown.style.left = (dropdown.clientWidth/2) + (window.innerWidth - dropdown.clientWidth) / 2 + 'px';
+dropdown.style.top = '55%';
 divElements.push(dropdown);
 
 // create labels
-var labelBee = createLabel("number of bees", '45%');
+var labelBee = createLabel("number of bees", '50%', input.clientWidth);
 divElements.push(labelBee);
-var labelAudio = createLabel("audio", '50%');
+var labelAudio = createLabel("audio", '55%', inputVar.clientWidth);
 divElements.push(labelAudio);
-var labelVar = createLabel("variance", '40%');
+var labelVar = createLabel("variance", '45%', dropdown.clientWidth);
 divElements.push(labelVar);
 
 // function for button click
@@ -153,15 +166,18 @@ function onAudio(event) {
 }
 
 // function to create label
-function createLabel(str, top) {
+function createLabel(str, top, clientW) {
 
     const text = document.createElement('div');
     document.body.appendChild(text);
     text.innerHTML = str;
+    text.clientW= clientW;
+    text.className = "label";
     text.style.fontFamily = 'Monaco';
     text.style.fontSize = '15px';
     text.style.position = 'absolute';
-    text.style.left = ((window.innerWidth - text.clientWidth) / 2.5)  + 'px';
+    text.style.color = "black";
+    text.style.left = ((window.innerWidth - text.clientWidth) / 2) - (clientW / 2) + 'px';
     text.style.top = top;
 
 
@@ -210,6 +226,7 @@ function uploadAudio() {
 }
 
 
+
 // call SeedScene to start simulation
 function startSim(beeNum, varN) {
     // delete html elements from startscene
@@ -253,6 +270,23 @@ const windowResizeHandler = () => {
     renderer.setSize(innerWidth, innerHeight);
     camera.aspect = innerWidth / innerHeight;
     camera.updateProjectionMatrix();
+
+    // realign divElements
+    divElements.forEach((divElement) => {
+       // console.log(divElement.className);
+       if(divElement.className == "label")
+       { 
+        divElement.style.left = (window.innerWidth - divElement.clientWidth)/2 - (divElement.clientW / 2) + 'px';
+       }
+       else if (divElement.className == "input" || divElement.className == "dropdown") {
+           console.log("yo")
+        divElement.style.left = (divElement.clientWidth / 2) + (window.innerWidth - divElement.clientWidth)/2 + 'px';
+       }
+       else {
+        divElement.style.left = (window.innerWidth - divElement.clientWidth)/2 + 'px';
+    }
+       
+    });
 };
 windowResizeHandler();
 window.addEventListener('resize', windowResizeHandler, false);
