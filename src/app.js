@@ -26,7 +26,7 @@ let simScene;
 const camera = new PerspectiveCamera();
 const renderer = new WebGLRenderer({ antialias: true });
 let divElements = [];
-let audioChoice = BEEZ;
+let audioChoice = "none";
 
 
 // add html elemnts to scene
@@ -108,6 +108,10 @@ dropdown.style.borderColor = 'transparent';
 dropdown.style.backgroundColor = 'yellow';
 dropdown.style.cursor = 'pointer';
 
+var option0 = document.createElement('option');
+option0.value = "option0";
+option0.text = "none";
+dropdown.appendChild(option0);
 var option1 = document.createElement('option');
 option1.value = "option1";
 option1.text = "bees in the trap";
@@ -154,13 +158,18 @@ function inputVariance() {
 
 // function for audio option change 
 function onAudio(event) {
-    if (event.target.value == option2.value) {
+    if(event.target.value == option0.value)
+    {
+        return;
+    }
+    else if (event.target.value == option2.value) {
         audioChoice = BUZZ;
     }
     else if (event.target.value == option3.value) {
         audioChoice = BEEGEES;
     }
     else {
+        console.log("beez");
         audioChoice = BEEZ;
     }
 
