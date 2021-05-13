@@ -11,7 +11,7 @@ class SeedScene extends Scene {
         // Call parent Scene() constructor
         super();
        
-
+        console.log(varianceIn);
         // Init state
         this.state = {
             gui: new Dat.GUI(), // Create GUI for scene
@@ -38,7 +38,7 @@ class SeedScene extends Scene {
             let scale = this.state.scale;
             // randomize bee size, and thus construction measuring
             if (RAND_MEASURES) {
-                let rand = (Math.random() * 2 - 1) / variance;
+                let rand = (Math.random() * 2 - 1) / this.state.variance;
                 scale += rand;
             }
             let bee = new Bee(this, scale);
@@ -59,7 +59,7 @@ class SeedScene extends Scene {
     }
 
     update(timeStamp) {
-        const { rotationSpeed, updateList, numBees } = this.state;
+        const { rotationSpeed, updateList, numBees, variance } = this.state;
         // this.rotation.y = (rotationSpeed * timeStamp) / 10000;
         
         // Call update for each object in the updateList

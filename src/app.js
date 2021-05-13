@@ -211,7 +211,7 @@ function uploadAudio() {
 
 
 // call SeedScene to start simulation
-function startSim(beeNum) {
+function startSim(beeNum, varN) {
     // delete html elements from startscene
     divElements.forEach((divElement) => divElement.remove());
     divElements = null;
@@ -222,7 +222,7 @@ function startSim(beeNum) {
     isSim = true;
    // console.log(beeNum);
     //   console.log('click');
-    simScene = new SeedScene(beeNum);
+    simScene = new SeedScene(beeNum, varN);
     // start audio
     uploadAudio();
 
