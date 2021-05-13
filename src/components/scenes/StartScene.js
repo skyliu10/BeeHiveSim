@@ -182,11 +182,7 @@ class StartScene extends Scene {
     
     // destruct scene
     destruct() {
-        // remove div elements
-        this.divElements.forEach((divElement) => divElement.remove());
-        this.divElements = null;
 
-        // throw away scene
         this.dispose();
 
     }

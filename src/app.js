@@ -279,7 +279,7 @@ const windowResizeHandler = () => {
         divElement.style.left = (window.innerWidth - divElement.clientWidth)/2 - (divElement.clientW / 2) + 'px';
        }
        else if (divElement.className == "input" || divElement.className == "dropdown") {
-           console.log("yo")
+           //console.log("yo")
         divElement.style.left = (divElement.clientWidth / 2) + (window.innerWidth - divElement.clientWidth)/2 + 'px';
        }
        else {
