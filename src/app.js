@@ -127,6 +127,7 @@ dropdown.style.left = (dropdown.clientWidth / 2) + (window.innerWidth - dropdown
 dropdown.style.top = '55%';
 divElements.push(dropdown);
 
+
 // create labels
 var labelBee = createLabel("number of bees", '50%', input.clientWidth);
 divElements.push(labelBee);
@@ -240,6 +241,8 @@ function startSim(beeNum, varN) {
     // console.log(beeNum);
     //   console.log('click');
     simScene = new SeedScene(beeNum, varN);
+    camera.position.set(6, 3, 0);
+camera.lookAt(new Vector3(0, 0, 0));
     // start audio
     uploadAudio();
 
