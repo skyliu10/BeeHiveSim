@@ -9,10 +9,13 @@ class CellLocations extends Group {
         this.name = 'cellLocations';
 
         this.locations = [];
+        this.broodLocations = [];
+        this.broodAge = [];
+        this.empty = [];
 
         // push first location
         this.locations.push(new THREE.Vector3(0.04, 0, 0));
-        //console.log(this.locations);
+        this.empty.push(true);
 
         // make geometry and add first location
         this.geometry = new THREE.BufferGeometry();
@@ -24,25 +27,58 @@ class CellLocations extends Group {
         this.mesh = new THREE.Points(this.geometry, material);
         this.add(this.mesh);
 
+        // make brood geometry
+        this.broodGeometry = new THREE.BufferGeometry();
+
+        // make brood mesh and add to scene
+        const broodMaterial = new THREE.PointsMaterial({color: 0xffffff, size:0.2});
+        this.broodMesh = new THREE.Points(this.broodGeometry, broodMaterial);
+        this.add(this.broodMesh);
+
         // Add self to parent's update list
         parent.addToUpdateList(this);
 
         this.bb = new Box3().setFromBufferAttribute(this.geometry.attributes.position);
         // var bbHelper = new THREE.Box3Helper(this.bb, 0xff0000);
         // this.add(bbHelper);
+
+        this.currentTime = 0;
     }
 
     update(timeStamp) {
+        this.currentTime = timeStamp;
 
+        // check brood age and hatch if brood is old enough
+        for (let i = 0; i < this.broodLocations.length; i++) {
+            if (this.currentTime > (this.broodAge[i] + 20000)) {
+                let location = this.broodLocations[i];
+                this.broodLocations.splice(i, 1);
+                this.broodAge.splice(i, 1);
+                this.empty[this.locations.indexOf(location)] = true;
+
+                // hatch
+                this.parent.hatchBee(location);
+            }
+        }
     }
 
     // add new cell location at position, update mesh
     updateMesh(position) {
         this.locations.push(position);
+        this.empty.push(true);
         let buffer = new Float32Array(this.locations.length * 3);
         this.mesh.geometry.setAttribute('position', new THREE.BufferAttribute(buffer, 3).copyVector3sArray(this.locations));
 
         this.bb.setFromBufferAttribute(this.mesh.geometry.attributes.position);
+    }
+
+    // lays egg at given location
+    layEgg(locationIndex) {
+        this.empty[locationIndex] = false;
+        this.broodLocations.push(this.locations[locationIndex]);
+        this.broodAge.push(this.currentTime);
+        let buffer = new Float32Array(this.broodLocations.length * 3);
+        this.broodMesh.geometry.setAttribute('position', new THREE.BufferAttribute(buffer, 3).copyVector3sArray(this.broodLocations));
     }
 
     // adds a new cell location if location is valid. will be called for all positions a bee visits. 

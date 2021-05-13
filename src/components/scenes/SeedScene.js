@@ -1,6 +1,6 @@
 import * as Dat from 'dat.gui';
 import { Scene, Color } from 'three';
-import { Flower, Land, Bee, Branch, Floor, CellLocations, CellWalls, Frame } from 'objects';
+import { Flower, Land, Bee, Branch, Floor, CellLocations, CellWalls, Frame, QueenBee } from 'objects';
 import { BasicLights } from 'lights';
 import * as THREE from "three";
 const RAND_MEASURES = true;
@@ -28,7 +28,7 @@ class SeedScene extends Scene {
 
         const cellLocations = new CellLocations(this);
         const cellWalls = new CellWalls(this);
-        //const frame = new Frame(this);
+        const frame = new Frame(this);
         const lights = new BasicLights();
         this.add(cellLocations, cellWalls, lights);
 
@@ -42,16 +42,35 @@ class SeedScene extends Scene {
                 scale += rand;
             }
             let bee = new Bee(this, scale);
-            bee.position.set(0.04, 0, 0); //-0.3
+            bee.position.set(0.04, 0, 0);
             this.add(bee);
         }
 
-        // Populate GUI
-     //   this.state.gui.add(this.state, 'numBees', 1, 5).step(1);
+        // add queen bee
+        let queenBee = new QueenBee(this, this.state.scale);
+        queenBee.position.set(0.04, 0, 0);
+        this.add(queenBee);
 
         this.bb = new THREE.Box3(new THREE.Vector3(0.04, -1, -1.5), new THREE.Vector3(0.04, 1, 1.5));
-        var bbHelper = new THREE.Box3Helper(this.bb, 0xff0000);
-        this.add(bbHelper);
+        // var bbHelper = new THREE.Box3Helper(this.bb, 0xff0000);
+        // this.add(bbHelper);
+
+        this.queenBb = new THREE.Box3(new THREE.Vector3(0.04, -0.5, -0.5), new THREE.Vector3(0.04, 0.5, 0.5));
+        // var queenBbHelper = new THREE.Box3Helper(this.queenBb, 0xff0000);
+        // this.add(queenBbHelper);
+    }
+
+    // add new bee
+    hatchBee(position) {
+        let scale = this.state.scale;
+        // randomize bee size, and thus construction measuring
+        if (RAND_MEASURES) {
+            let rand = (Math.random() * 2 - 1) / this.state.variance;
+            scale += rand;
+        }
+        let bee = new Bee(this, scale);
+        bee.position.set(position);
+        this.add(bee);
     }
 
     addToUpdateList(object) {

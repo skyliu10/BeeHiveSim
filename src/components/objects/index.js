@@ -7,3 +7,4 @@ export * from './CellLocations';
 export * from './CellWalls';
 export * from './BeeIndex';
 export * from './Frame';
+export * from './QueenBee';
