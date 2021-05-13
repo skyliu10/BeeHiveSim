@@ -138,6 +138,20 @@ divElements.push(labelBee);
 var labelAudio = createLabel("audio", '55%', inputVar.clientWidth);
 divElements.push(labelAudio);
 var labelVar = createLabel("variance", '45%', dropdown.clientWidth);
+
+// add info
+const info = document.createElement('div');
+document.body.appendChild(info);
+info.innerHTML = "Welcome to BEEHIVE SIM! As beekeeper, you have the power to decide how the bees construct their hive. Choose the variance, number of bees, and audio and press start to begin. ";
+info.style.fontFamily = 'Monaco';
+info.style.fontSize = '15px';
+info.style.textAlign = 'center';
+info.style.position = 'absolute';
+info.style.left = (window.innerWidth - info.clientWidth) / 2 + 'px';
+info.style.top = '75%';
+divElements.push(info);
+
+
 divElements.push(labelVar);
 
 // function for button click
