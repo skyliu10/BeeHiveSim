@@ -22,12 +22,7 @@ class StartScene extends Scene {
             this.add(bee);
         }
 
-        this.background = new Color(0x7ec0ee);
-
-
-        
-       // this.divElements = [];
-       // this.divElements.push(this.createText("BEEHIVE SIM", '30%'));
+        this.background = new Color(0x4db8ff);
     
        
     }
@@ -170,10 +165,7 @@ class StartScene extends Scene {
 
     update() {
         const { updateList} = this.state;
-        // this.rotation.y = (rotationSpeed * timeStamp) / 10000;
-       // document.getElementById('button').addEventListener("click", startSim.bind(null, document.getElementById("beeInput").value));
-        // Call update for each object in the updateList
-       // this.beeNum = beeNum;
+        
         for (const obj of updateList) {
             obj.update();
         }

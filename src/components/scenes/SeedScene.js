@@ -24,7 +24,7 @@ class SeedScene extends Scene {
         };
 
         // Set background to a nice color
-        this.background = new Color(0x7ec0ee);
+        this.background = new Color(0x4db8ff);
 
         const cellLocations = new CellLocations(this);
         const cellWalls = new CellWalls(this);
@@ -38,7 +38,7 @@ class SeedScene extends Scene {
             let scale = this.state.scale;
             // randomize bee size, and thus construction measuring
             if (RAND_MEASURES) {
-                let rand = (Math.random() * 2 - 1) / this.state.variance;
+                let rand = (Math.random() * 2 - 1) / (this.state.variance * 1000);
                 scale += rand;
             }
             let bee = new Bee(this, scale);

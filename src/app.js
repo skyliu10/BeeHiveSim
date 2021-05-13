@@ -35,14 +35,14 @@ let audioChoice = BEEZ;
 
 // add title
 const text = document.createElement('div');
-        document.body.appendChild(text);
-        text.innerHTML = "BEEHIVE SIM";
-        text.style.fontFamily = 'Monaco';
-        text.style.fontSize = '60px';
-        text.style.position = 'absolute';
-        text.style.left = (window.innerWidth - text.clientWidth) / 2 + 'px';
-        text.style.top = '35%';
-        divElements.push(text);
+document.body.appendChild(text);
+text.innerHTML = "BEEHIVE SIM";
+text.style.fontFamily = 'Monaco';
+text.style.fontSize = '60px';
+text.style.position = 'absolute';
+text.style.left = (window.innerWidth - text.clientWidth) / 2 + 'px';
+text.style.top = '35%';
+divElements.push(text);
 
 // add start button
 const button = document.createElement('button');
@@ -88,7 +88,7 @@ const inputVar = document.createElement('input');
 inputVar.type = "text";
 inputVar.id = 'varInput';
 inputVar.className = "input";
-inputVar.value = 15000;
+inputVar.value = 15;
 var varN = inputVar.value;
 inputVar.style.fontFamily = "Monaco";
 inputVar.style.position = 'absolute';
@@ -123,7 +123,7 @@ dropdown.appendChild(option3);
 dropdown.addEventListener('change', onAudio, false);
 document.body.appendChild(dropdown);
 dropdown.style.position = 'absolute';
-dropdown.style.left = (dropdown.clientWidth/2) + (window.innerWidth - dropdown.clientWidth) / 2 + 'px';
+dropdown.style.left = (dropdown.clientWidth / 2) + (window.innerWidth - dropdown.clientWidth) / 2 + 'px';
 dropdown.style.top = '55%';
 divElements.push(dropdown);
 
@@ -156,7 +156,7 @@ function onAudio(event) {
     if (event.target.value == option2.value) {
         audioChoice = BUZZ;
     }
-    else if(event.target.value == option3.value) {
+    else if (event.target.value == option3.value) {
         audioChoice = BEEGEES;
     }
     else {
@@ -169,17 +169,17 @@ function onAudio(event) {
 function createLabel(str, top, clientW) {
 
     const text = document.createElement('div');
-    document.body.appendChild(text);
+
     text.innerHTML = str;
-    text.clientW= clientW;
+    text.clientW = clientW;
     text.className = "label";
     text.style.fontFamily = 'Monaco';
     text.style.fontSize = '15px';
     text.style.position = 'absolute';
     text.style.color = "black";
-    text.style.left = ((window.innerWidth - text.clientWidth) / 2) - (clientW / 2) + 'px';
+    text.style.left = ((window.innerWidth - text.clientWidth) / 2) - (text.clientW / 2) + 'px';
     text.style.top = top;
-
+    document.body.appendChild(text);
 
     return text;
 
@@ -237,7 +237,7 @@ function startSim(beeNum, varN) {
     scene.destruct();
     isStart = false;
     isSim = true;
-   // console.log(beeNum);
+    // console.log(beeNum);
     //   console.log('click');
     simScene = new SeedScene(beeNum, varN);
     // start audio
@@ -273,19 +273,19 @@ const windowResizeHandler = () => {
 
     // realign divElements
     divElements.forEach((divElement) => {
-       // console.log(divElement.className);
-       if(divElement.className == "label")
-       { 
-        divElement.style.left = (window.innerWidth - divElement.clientWidth)/2 - (divElement.clientW / 2) + 'px';
-       }
-       else if (divElement.className == "input" || divElement.className == "dropdown") {
-           //console.log("yo")
-        divElement.style.left = (divElement.clientWidth / 2) + (window.innerWidth - divElement.clientWidth)/2 + 'px';
-       }
-       else {
-        divElement.style.left = (window.innerWidth - divElement.clientWidth)/2 + 'px';
-    }
-       
+        // console.log(divElement.className);
+        if (divElement.className == "label") {
+            var clientW = divElement.clientW ;
+            divElement.style.left = (window.innerWidth - divElement.clientWidth) / 2 - (clientW/ 2) + 'px';
+        }
+        else if (divElement.className == "input" || divElement.className == "dropdown") {
+            //console.log("yo")
+            divElement.style.left = (divElement.clientWidth / 2) + (window.innerWidth - divElement.clientWidth) / 2 + 'px';
+        }
+        else {
+            divElement.style.left = (window.innerWidth - divElement.clientWidth) / 2 + 'px';
+        }
+
     });
 };
 windowResizeHandler();
