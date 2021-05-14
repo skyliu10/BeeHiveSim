@@ -93,7 +93,7 @@ class CellLocations extends Group {
     // measure argument is the length that a particular bee builds with (proportional to its size).
     addNewLocation(position, measure) {
         let numLocations = this.locations.length;
-        let tolerance = this.parent.state.scale / 2.5;
+        let tolerance = this.parent.state.scale / 2;
 
         // restrict to frame
         //if (!this.parent.children[2].bb.containsPoint(new THREE.Vector3().copy(position).setX(0))) { return; }
