@@ -50,10 +50,11 @@ class CellLocations extends Group {
 
     update(timeStamp) {
         this.currentTime = timeStamp;
+        let incTime = Number(this.incTime);
 
         // check brood age and hatch if brood is old enough
         for (let i = 0; i < this.broodLocations.length; i++) {
-            if (this.currentTime > (this.broodAge[i] + this.incTime)) {
+            if (this.currentTime > (this.broodAge[i] + incTime)) {
                 let location = this.broodLocations[i];
                 this.broodLocations.splice(i, 1);
                 this.broodAge.splice(i, 1);
