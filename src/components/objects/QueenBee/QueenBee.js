@@ -14,7 +14,7 @@ class QueenBee extends Group {
         this.name = 'bee';
 
         // scale the bee and set construction measure proportional to bee scale
-        this.scale.set(scale * 1.5, scale * 1.5, scale * 1.5);
+        this.scale.set(scale * 2, scale * 2, scale * 2);
        
         loader.load(MODEL, (gltf) => {
             this.add(gltf.scene);

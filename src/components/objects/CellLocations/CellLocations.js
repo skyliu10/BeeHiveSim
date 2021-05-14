@@ -1,5 +1,6 @@
 import { Box3, Group, Scene } from 'three';
 import * as THREE from "three";
+const INCUBATION_TIME = 2000;
 
 class CellLocations extends Group {
     constructor(parent) {
@@ -23,7 +24,7 @@ class CellLocations extends Group {
         this.geometry.setAttribute('position', new THREE.BufferAttribute(buffer, 3).copyVector3sArray(this.locations));
 
         // make mesh and add to scene
-        const material = new THREE.PointsMaterial({color: 0x000000, size: 0.02});
+        const material = new THREE.PointsMaterial({color: 0xfcba03, size: 0.02});
         this.mesh = new THREE.Points(this.geometry, material);
         this.add(this.mesh);
 
@@ -31,7 +32,7 @@ class CellLocations extends Group {
         this.broodGeometry = new THREE.BufferGeometry();
 
         // make brood mesh and add to scene
-        const broodMaterial = new THREE.PointsMaterial({color: 0xffffff, size:0.2});
+        const broodMaterial = new THREE.PointsMaterial({color: 0xffe18f, size:0.1});
         this.broodMesh = new THREE.Points(this.broodGeometry, broodMaterial);
         this.add(this.broodMesh);
 
@@ -50,7 +51,7 @@ class CellLocations extends Group {
 
         // check brood age and hatch if brood is old enough
         for (let i = 0; i < this.broodLocations.length; i++) {
-            if (this.currentTime > (this.broodAge[i] + 20000)) {
+            if (this.currentTime > (this.broodAge[i] + INCUBATION_TIME)) {
                 let location = this.broodLocations[i];
                 this.broodLocations.splice(i, 1);
                 this.broodAge.splice(i, 1);
@@ -58,6 +59,10 @@ class CellLocations extends Group {
 
                 // hatch
                 this.parent.hatchBee(location);
+
+                // update mesh
+                let buffer = new Float32Array(this.broodLocations.length * 3);
+                this.broodMesh.geometry.setAttribute('position', new THREE.BufferAttribute(buffer, 3).copyVector3sArray(this.broodLocations));
             }
         }
     }

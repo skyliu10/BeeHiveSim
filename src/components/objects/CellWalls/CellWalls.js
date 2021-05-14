@@ -14,7 +14,7 @@ class CellWalls extends Group {
         this.geometry = new THREE.BufferGeometry();
 
         // make mesh and add to scene
-        const material = new THREE.PointsMaterial({color: 0x000000, size: 0.02});
+        const material = new THREE.PointsMaterial({color: 0xfcba03, size: 0.04});
         this.mesh = new THREE.Points(this.geometry, material);
         this.add(this.mesh);
 

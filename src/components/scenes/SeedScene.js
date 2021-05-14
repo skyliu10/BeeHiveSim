@@ -20,7 +20,7 @@ class SeedScene extends Scene {
             numBees: beeNum,
             updateLimit: 50000000,
             scale: 0.013,
-            variance: varianceIn,
+            variance: varianceIn / 200,
         };
 
         // Set background to a nice color
@@ -30,7 +30,7 @@ class SeedScene extends Scene {
         const cellWalls = new CellWalls(this);
         const frame = new Frame(this);
         const lights = new BasicLights();
-        this.add(cellLocations, cellWalls, lights);
+        this.add(cellLocations, cellWalls, lights, frame);
 
         // add multiple bees if needed
         // will set this right at the start
@@ -38,7 +38,7 @@ class SeedScene extends Scene {
             let scale = this.state.scale;
             // randomize bee size, and thus construction measuring
             if (RAND_MEASURES) {
-                let rand = (Math.random() * 2 - 1) / (this.state.variance * 1000);
+                let rand = (Math.random() * 2 - 1) * this.state.variance;
                 scale += rand;
             }
             let bee = new Bee(this, scale);
@@ -63,13 +63,13 @@ class SeedScene extends Scene {
     // add new bee
     hatchBee(position) {
         let scale = this.state.scale;
-        // randomize bee size, and thus construction measuring
+        // randomize bee size
         if (RAND_MEASURES) {
-            let rand = (Math.random() * 2 - 1) / this.state.variance;
+            let rand = (Math.random() * 2 - 1) * this.state.variance;
             scale += rand;
         }
         let bee = new Bee(this, scale);
-        bee.position.set(position);
+        bee.position.set(0.04, 0, 0);
         this.add(bee);
     }
 
