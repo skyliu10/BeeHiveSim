@@ -44,6 +44,7 @@ class QueenBee extends Group {
             if (Math.random() < 0.01) {
                 let closestLocation;
                 let bestDist = 100000;
+                let scale = this.parent.state.scale;
 
                 let locations = this.parent.children[0].locations;
 
@@ -54,6 +55,16 @@ class QueenBee extends Group {
                         bestDist = locations[i].distanceTo(this.position);
                     }
                 }
+
+                // determine if closest location is adequately surrounded
+                let numSurrounding = 0;
+                for (let i = 0; i < locations.length; i++) {
+                    let neighborDist = closestLocation.distanceTo(locations[i]);
+                    if (neighborDist < (scale * 25)) { numSurrounding++; }
+                }
+
+                // return if location is not
+                if (numSurrounding < 7) { return; } // 6 surrounding + 1 self
 
                 // lay egg if closest location is empty
                 let closestIndex = locations.indexOf(closestLocation);
