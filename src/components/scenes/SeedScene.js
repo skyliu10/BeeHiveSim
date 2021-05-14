@@ -7,7 +7,7 @@ const RAND_MEASURES = true;
 //const VARIANCE = 15000; // smaller = more variance
 
 class SeedScene extends Scene {
-    constructor(beeNum, varianceIn) {
+    constructor(beeNum, varianceIn, incIn) {
         // Call parent Scene() constructor
         super();
        
@@ -26,7 +26,7 @@ class SeedScene extends Scene {
         // Set background to a nice color
         this.background = new Color(0x4db8ff);
 
-        const cellLocations = new CellLocations(this);
+        const cellLocations = new CellLocations(this, incIn);
         const cellWalls = new CellWalls(this);
         const frame = new Frame(this);
         const lights = new BasicLights();

@@ -1,9 +1,9 @@
 import { Box3, Group, Scene } from 'three';
 import * as THREE from "three";
-const INCUBATION_TIME = 2000;
+//const INCUBATION_TIME = 2000;
 
 class CellLocations extends Group {
-    constructor(parent) {
+    constructor(parent, incTime) {
         // Call parent Group() constructor
         super();
 
@@ -51,7 +51,7 @@ class CellLocations extends Group {
 
         // check brood age and hatch if brood is old enough
         for (let i = 0; i < this.broodLocations.length; i++) {
-            if (this.currentTime > (this.broodAge[i] + INCUBATION_TIME)) {
+            if (this.currentTime > (this.broodAge[i] + incTime)) {
                 let location = this.broodLocations[i];
                 this.broodLocations.splice(i, 1);
                 this.broodAge.splice(i, 1);

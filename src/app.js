@@ -74,7 +74,7 @@ const inputInc = document.createElement('input');
 inputInc.type = "text";
 inputInc.id = 'incInput';
 inputInc.className = "input";
-inputInc.value = 4;
+inputInc.value = 2000;
 var incN = inputInc.value;
 inputInc.style.fontFamily = "Monaco";
 inputInc.style.position = 'absolute';
@@ -174,7 +174,7 @@ divElements.push(labelVar);
 
 // function for button click
 function onButtClick(event) {
-    startSim(beeN, varN);
+    startSim(beeN, varN, incN);
 }
 
 // function for incubation input
@@ -195,8 +195,7 @@ function inputVariance() {
 
 // function for audio option change 
 function onAudio(event) {
-    if(event.target.value == option0.value)
-    {
+    if (event.target.value == option0.value) {
         return;
     }
     else if (event.target.value == option2.value) {
@@ -277,20 +276,20 @@ function uploadAudio() {
 
 
 // call SeedScene to start simulation
-function startSim(beeNum, varN) {
+function startSim(beeNum, varN, incN) {
     // delete html elements from startscene
     divElements.forEach((divElement) => divElement.remove());
     divElements = null;
 
-    // destruct startscene
+    // destruct startscenes
     scene.destruct();
     isStart = false;
     isSim = true;
     // console.log(beeNum);
     //   console.log('click');
-    simScene = new SeedScene(beeNum, varN);
+    simScene = new SeedScene(beeNum, varN, incN);
     camera.position.set(6, 3, 0);
-camera.lookAt(new Vector3(0, 0, 0));
+    camera.lookAt(new Vector3(0, 0, 0));
     // start audio
     uploadAudio();
 
@@ -326,8 +325,8 @@ const windowResizeHandler = () => {
     divElements.forEach((divElement) => {
         // console.log(divElement.className);
         if (divElement.className == "label") {
-            var clientW = divElement.clientW ;
-            divElement.style.left = (window.innerWidth - divElement.clientWidth) / 2 - (clientW/ 2) + 'px';
+            var clientW = divElement.clientW;
+            divElement.style.left = (window.innerWidth - divElement.clientWidth) / 2 - (clientW / 2) + 'px';
         }
         else if (divElement.className == "input" || divElement.className == "dropdown") {
             //console.log("yo")
