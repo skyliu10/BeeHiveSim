@@ -142,7 +142,7 @@ var labelVar = createLabel("variance", '45%', dropdown.clientWidth);
 // add info
 const info = document.createElement('div');
 document.body.appendChild(info);
-info.innerHTML = "Welcome to BEEHIVE SIM! As beekeeper, you have the power to decide how the bees construct their hive. Choose the variance in bee size (affects construction regularity), the number of bees, and optional audio, and press start to begin. ";
+info.innerHTML = "Welcome to BEEHIVE SIM! As beekeeper, you have the power to decide how the bees construct their hive. Choose the variance in bee size (affects construction regularity), the starting population, and optional audio, and press start to begin. ";
 info.style.fontFamily = 'Monaco';
 info.style.fontSize = '15px';
 info.style.textAlign = 'center';
