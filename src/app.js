@@ -41,7 +41,7 @@ text.style.fontFamily = 'Monaco';
 text.style.fontSize = '60px';
 text.style.position = 'absolute';
 text.style.left = (window.innerWidth - text.clientWidth) / 2 + 'px';
-text.style.top = '35%';
+text.style.top = '30%';
 divElements.push(text);
 
 // add start button
@@ -68,6 +68,22 @@ button.style.left = (window.innerWidth - button.clientWidth) / 2 + 'px';
 button.addEventListener("click", onButtClick, false);
 
 divElements.push(button);
+
+// add incubation input
+const inputInc = document.createElement('input');
+inputInc.type = "text";
+inputInc.id = 'incInput';
+inputInc.className = "input";
+inputInc.value = 4;
+var incN = inputInc.value;
+inputInc.style.fontFamily = "Monaco";
+inputInc.style.position = 'absolute';
+inputInc.style.left = (inputInc.clientWidth / 2) + ((window.innerWidth - inputInc.clientWidth) / 2) + 'px';
+inputInc.style.top = '40%';
+inputInc.oninput = inputIncubation;
+document.body.appendChild(inputInc);
+divElements.push(inputInc);
+
 
 // add number of bees input 
 const input = document.createElement('input');
@@ -133,6 +149,8 @@ divElements.push(dropdown);
 
 
 // create labels
+var labelInc = createLabel("incubation", '40%', inputInc.clientWidth);
+divElements.push(labelInc);
 var labelBee = createLabel("number of bees", '50%', input.clientWidth);
 divElements.push(labelBee);
 var labelAudio = createLabel("audio", '55%', inputVar.clientWidth);
@@ -142,7 +160,7 @@ var labelVar = createLabel("variance", '45%', dropdown.clientWidth);
 // add info
 const info = document.createElement('div');
 document.body.appendChild(info);
-info.innerHTML = "Welcome to BEEHIVE SIM! As beekeeper, you have the power to decide how the bees construct their hive. Choose the variance in bee size (affects construction regularity), the starting population, and optional audio, and press start to begin. ";
+info.innerHTML = "Welcome to BEEHIVE SIM! As beekeeper, you have the power to decide how the bees construct their hive. Choose the variance in bee size (affects construction regularity), the starting population, the incubation rate for new bees, and optional audio, and press start to begin. ";
 info.style.fontFamily = 'Monaco';
 info.style.fontSize = '15px';
 info.style.textAlign = 'center';
@@ -157,6 +175,11 @@ divElements.push(labelVar);
 // function for button click
 function onButtClick(event) {
     startSim(beeN, varN);
+}
+
+// function for incubation input
+function inputIncubation() {
+    incN = document.getElementById('incInput').value;
 }
 
 // function for number of bees input
