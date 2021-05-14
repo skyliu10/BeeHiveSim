@@ -58,6 +58,14 @@ class SeedScene extends Scene {
         this.queenBb = new THREE.Box3(new THREE.Vector3(0.04, -0.5, -0.5), new THREE.Vector3(0.04, 0.5, 0.5));
         // var queenBbHelper = new THREE.Box3Helper(this.queenBb, 0xff0000);
         // this.add(queenBbHelper);
+
+        // add text 
+        this.divElements = [];
+        var text = "number of bees: ";
+        this.divElements.push(this.createText("BEEHIVE SIM", '10%', '60px'));
+        this.beeText = this.createText(text + this.state.numBees, '20%', '20px');
+        this.divElements.push(this.beeText);
+
     }
 
     // add new bee
@@ -71,6 +79,9 @@ class SeedScene extends Scene {
         let bee = new Bee(this, scale);
         bee.position.set(0.04, 0, 0);
         this.add(bee);
+        this.state.numBees++;
+        console.log(this.state.numBees);
+        this.beeText.innerHTML =   "number of bees: " + this.state.numBees;
     }
 
     addToUpdateList(object) {
@@ -87,6 +98,35 @@ class SeedScene extends Scene {
         }
  
     }
+
+  
+
+        
+   createText(str, top, size) {
+
+    const text = document.createElement('div');
+    document.body.appendChild(text);
+    text.innerHTML = str;
+    text.style.fontFamily = 'Monaco';
+    text.style.fontSize = size;
+    text.style.position = 'absolute';
+    text.style.left = (window.innerWidth - text.clientWidth) / 2 + 'px';
+    text.style.top = top;
+
+
+    return text;
+
+}
+
+resizeHandler() {
+    // realign divElements
+    this.divElements.forEach((divElement) => {
+        console.log(divElement);
+        divElement.style.left = (window.innerWidth - divElement.clientWidth)/2 + 'px';
+    });
+}
+
+
 }
 
 export default SeedScene;

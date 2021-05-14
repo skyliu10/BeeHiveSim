@@ -130,7 +130,7 @@ option0.text = "none";
 dropdown.appendChild(option0);
 var option1 = document.createElement('option');
 option1.value = "option1";
-option1.text = "bees in the trap";
+option1.text = "beez in the trap";
 dropdown.appendChild(option1);
 var option2 = document.createElement('option');
 option2.value = "option2";
@@ -295,6 +295,13 @@ function startSim(beeNum, varN, incN) {
 
 
 };
+
+
+// resize handler
+/*
+window.addEventListener('resize', () => {
+    SeedScene && SeedScene.resizeHandler();
+  }, false);*/
 
 // Render loop
 const onAnimationFrameHandler = (timeStamp) => {
