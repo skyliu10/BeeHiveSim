@@ -9,11 +9,6 @@ class Bee extends Group {
         // Call parent Group() constructor
         super();
 
-        // Init state
-        /* this.state = {
-             gui: parent.state.gui,
-         };*/
-
         // Load object
         const loader = new GLTFLoader();
         this.name = 'bee';
@@ -51,8 +46,6 @@ class Bee extends Group {
         let bb = new Box3().copy(this.parent.children[0].bb).expandByVector(new THREE.Vector3(0, this.parent.state.scale * 25, this.parent.state.scale * 25));
         if (bb.containsPoint(new THREE.Vector3().copy(newPosition).setX(0.03999999910593033))) {
             this.position.addScaledVector(direction, 0.02);
-
-            //let correctedPosition = new THREE.Vector3().copy(newPosition).add(new Vector3(0, -0.25, 0));
 
             // add new cell location, if current position is valid
             this.parent.children[0].addNewLocation(newPosition, this.measure);
