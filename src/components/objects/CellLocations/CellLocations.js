@@ -9,6 +9,8 @@ class CellLocations extends Group {
 
         this.name = 'cellLocations';
 
+        this.incTime = incTime;
+
         this.locations = [];
         this.broodLocations = [];
         this.broodAge = [];
@@ -51,7 +53,7 @@ class CellLocations extends Group {
 
         // check brood age and hatch if brood is old enough
         for (let i = 0; i < this.broodLocations.length; i++) {
-            if (this.currentTime > (this.broodAge[i] + incTime)) {
+            if (this.currentTime > (this.broodAge[i] + this.incTime)) {
                 let location = this.broodLocations[i];
                 this.broodLocations.splice(i, 1);
                 this.broodAge.splice(i, 1);
@@ -90,7 +92,7 @@ class CellLocations extends Group {
     // measure argument is the length that a particular bee builds with (proportional to its size).
     addNewLocation(position, measure) {
         let numLocations = this.locations.length;
-        let tolerance = this.parent.state.scale / 3;
+        let tolerance = this.parent.state.scale / 2.5;
 
         // restrict to frame
         //if (!this.parent.children[2].bb.containsPoint(new THREE.Vector3().copy(position).setX(0))) { return; }
