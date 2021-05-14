@@ -1,4 +1,4 @@
-import { Group, Box3, Vector3} from 'three';
+import { Group, Box3, Vector3 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import MODEL from './Bee_01.glb';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
@@ -10,9 +10,9 @@ class Bee extends Group {
         super();
 
         // Init state
-       /* this.state = {
-            gui: parent.state.gui,
-        };*/
+        /* this.state = {
+             gui: parent.state.gui,
+         };*/
 
         // Load object
         const loader = new GLTFLoader();
@@ -21,7 +21,7 @@ class Bee extends Group {
         // scale the bee and set construction measure proportional to bee scale
         this.scale.set(scale, scale, scale);
         this.measure = scale * 20;
-       
+
         loader.load(MODEL, (gltf) => {
             this.add(gltf.scene);
         });
@@ -32,8 +32,8 @@ class Bee extends Group {
         this.boundingBox = new Box3;
         this.updateCounter = 0;
 
-       
-      
+
+
     }
 
     update(timeStamp) {

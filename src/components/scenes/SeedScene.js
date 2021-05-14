@@ -15,7 +15,6 @@ class SeedScene extends Scene {
         // Init state
         this.state = {
            // gui: new Dat.GUI(), // Create GUI for scene
-            rotationSpeed: 1,
             updateList: [],
             numBees: beeNum,
             updateLimit: 50000000,
@@ -80,7 +79,6 @@ class SeedScene extends Scene {
         bee.position.set(0.04, 0, 0);
         this.add(bee);
         this.state.numBees++;
-        console.log(this.state.numBees);
         this.beeText.innerHTML =   "number of bees: " + this.state.numBees;
     }
 
@@ -89,8 +87,7 @@ class SeedScene extends Scene {
     }
 
     update(timeStamp) {
-        const { rotationSpeed, updateList, numBees, variance } = this.state;
-        // this.rotation.y = (rotationSpeed * timeStamp) / 10000;
+        const { updateList, numBees, variance } = this.state;
         
         // Call update for each object in the updateList
         for (const obj of updateList) {
